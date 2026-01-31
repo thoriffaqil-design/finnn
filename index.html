@@ -3,21 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinzX Photobooth | Modern Camera with Live Filters</title>
+    <title>FinessePhoto | AI-Powered Photobooth</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Previous CSS remains the same until .camera-container */
-        
+        :root {
+            /* Modern Color Palette */
+            --bg-primary: #0a0b0e;
+            --bg-secondary: #111318;
+            --bg-card: #1a1d24;
+            --bg-surface: #242830;
+            
+            /* Accent Colors */
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6);
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            
+            /* Neutral Colors */
+            --text-primary: #ffffff;
+            --text-secondary: #a0a3b3;
+            --text-muted: #6b7280;
+            --border-color: #2d313d;
+            
+            /* Status Colors */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            
+            /* Typography */
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+            
+            /* Spacing */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 50%;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
+            --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Elegant Background Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Main Container */
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 24px;
+            min-height: 100vh;
+        }
+
+        /* Header - Premium Design */
+        .header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 32px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .logo-text {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
+        .camera-status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--success);
+            position: relative;
+        }
+
+        .status-indicator::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--success);
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.1; }
+        }
+
+        /* Main Camera Section - Elegant Design */
+        .camera-section {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .camera-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent-gradient);
+            z-index: 2;
+        }
+
         .camera-container {
             position: relative;
             width: 100%;
-            border-radius: var(--radius-lg);
+            height: 600px;
             overflow: hidden;
             background: #000;
-            aspect-ratio: 4/3;
-            margin-bottom: 25px;
         }
 
         #videoElement {
@@ -26,27 +208,6 @@
             object-fit: cover;
             transform: scaleX(-1);
             display: block;
-            filter: none;
-            transition: filter 0.3s ease;
-        }
-
-        #videoPreviewCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 3;
-            pointer-events: none;
-            display: none;
-        }
-
-        .live-filter-active #videoPreviewCanvas {
-            display: block;
-        }
-
-        .live-filter-active #videoElement {
-            opacity: 0;
         }
 
         .camera-overlay {
@@ -56,185 +217,673 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 4;
+            z-index: 1;
         }
 
-        /* Add new styles for filter preview */
-        .filter-preview-indicator {
+        /* Modern Grid Overlay */
+        .grid-overlay {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: var(--accent-neon);
-            padding: 8px 16px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            padding: 30px;
+            gap: 1px;
+        }
+
+        .grid-cell {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+        }
+
+        /* Focus Ring */
+        .focus-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border: 2px solid var(--accent-primary);
             border-radius: var(--radius-full);
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: none;
-            z-index: 5;
-            animation: slideIn 0.3s ease;
+            opacity: 0.5;
+            animation: ringPulse 3s infinite;
         }
 
-        .live-filter-active .filter-preview-indicator {
-            display: block;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(50px);
-                opacity: 0;
+        @keyframes ringPulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1); 
+                opacity: 0.5; 
+                box-shadow: 0 0 20px var(--accent-primary);
             }
-            to {
-                transform: translateX(0);
-                opacity: 1;
+            50% { 
+                transform: translate(-50%, -50%) scale(1.1); 
+                opacity: 0.8; 
+                box-shadow: 0 0 40px var(--accent-primary);
             }
         }
 
-        /* Update effect items */
-        .effect-item {
+        /* Camera Controls */
+        .camera-controls {
+            padding: 24px;
             background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .capture-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-full);
+            background: var(--accent-gradient);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .capture-btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .capture-btn:active {
+            transform: scale(0.95);
+        }
+
+        .capture-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: var(--radius-full);
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Ratio Selector */
+        .ratio-selector {
+            display: flex;
+            gap: 12px;
+            background: var(--bg-surface);
+            padding: 8px;
+            border-radius: var(--radius-lg);
+        }
+
+        .ratio-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 15px;
+            color: var(--text-secondary);
+            font-family: var(--font-heading);
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: 1px solid transparent;
+        }
+
+        .ratio-btn:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+        }
+
+        .ratio-btn.active {
+            background: var(--accent-gradient);
+            color: white;
+            border-color: transparent;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Sidebar - Premium Design */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .controls-panel {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .panel-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-title i {
+            color: var(--accent-primary);
+        }
+
+        .effects-count {
+            background: var(--bg-surface);
+            color: var(--text-secondary);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+        }
+
+        /* Effects Grid - Elegant Design */
+        .effects-scroll {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .effects-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .effects-scroll::-webkit-scrollbar-track {
+            background: var(--bg-surface);
+            border-radius: 3px;
+        }
+
+        .effects-scroll::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 3px;
+        }
+
+        .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .effect-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .effect-item:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        .effect-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-md);
         }
 
-        .effect-item.active {
-            border-color: var(--accent-neon);
-            box-shadow: 0 0 20px rgba(0, 255, 234, 0.3);
-            transform: scale(1.05);
+        .effect-card.active {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-glow);
         }
 
-        .effect-item.active::before {
-            content: '🎥 LIVE';
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: var(--accent-neon);
-            color: var(--bg-dark);
-            font-size: 0.6rem;
-            padding: 2px 6px;
-            border-radius: var(--radius-sm);
-            font-weight: 700;
-            animation: pulse 2s infinite;
+        .effect-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--accent-primary);
         }
 
-        /* Update effects grid for more fun filters */
-        .effects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 25px;
+        .effect-card.active .effect-icon {
+            background: var(--accent-gradient);
+            color: white;
         }
 
-        /* Fun filter categories */
-        .filter-category {
-            grid-column: 1 / -1;
+        .effect-name {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .effect-desc {
             font-size: 0.8rem;
-            color: var(--accent-pastel);
-            text-transform: uppercase;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .effect-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .effect-card.active .effect-badge {
+            opacity: 1;
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.5); }
+        }
+
+        /* Slider - Modern Design */
+        .slider-container {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .slider-label {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .slider-value {
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .custom-slider {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-surface);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid var(--bg-secondary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .slider-ticks {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            padding: 0 10px;
+        }
+
+        .slider-tick {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Preview Panel - Sleek Design */
+        .preview-panel {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            display: none;
+        }
+
+        .preview-panel.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .preview-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .preview-container {
+            width: 100%;
+            height: 250px;
+            background: #000;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        #previewCanvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .action-btn {
+            padding: 14px 20px;
+            border-radius: var(--radius-lg);
+            border: none;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn.download {
+            background: var(--accent-gradient);
+            color: white;
+        }
+
+        .action-btn.retake {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Footer - Minimalist */
+        .footer {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 32px 0 0;
+            margin-top: 32px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-brand {
+            color: var(--text-secondary);
+            font-weight: 600;
             letter-spacing: 1px;
-            margin-top: 15px;
-            margin-bottom: 8px;
-            padding-left: 5px;
-            border-left: 3px solid var(--accent-pastel);
+        }
+
+        /* Flash Effect */
+        .flash-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            display: none;
+        }
+
+        .flash-overlay.active {
+            display: block;
+            animation: flash 0.4s ease;
+        }
+
+        @keyframes flash {
+            0% { opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .camera-container {
+                height: 500px;
+            }
+            
+            .sidebar {
+                order: 3;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 16px;
+                gap: 16px;
+            }
+            
+            .camera-container {
+                height: 400px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+            
+            .effects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .camera-container {
+                height: 350px;
+            }
+            
+            .effects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .preview-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .ratio-selector {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Loading Animation */
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--bg-surface);
+            border-top-color: var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <!-- Flash Effect Overlay -->
+    <!-- Flash Effect -->
     <div class="flash-overlay" id="flashOverlay"></div>
     
-    <div class="container">
+    <div class="app-container">
         <!-- Header -->
         <header class="header">
-            <div class="logo">
-                <span class="logo-icon">📸</span>
-                <span>FinzX Photobooth</span>
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i>📸</i>
+                </div>
+                <div>
+                    <div class="logo-text">FinessePhoto</div>
+                    <div class="tagline">AI-Powered Photobooth Experience</div>
+                </div>
             </div>
+            
             <div class="camera-status">
-                <span class="status-indicator"></span>
-                <span id="cameraStatus">Kamera siap • Filter Live Aktif</span>
+                <div class="status-indicator"></div>
+                <span id="cameraStatus">Camera Ready • HD 1080p</span>
             </div>
         </header>
         
         <!-- Main Camera Section -->
         <main class="camera-section">
-            <div class="camera-container" id="cameraContainer">
+            <div class="camera-container">
                 <video id="videoElement" autoplay playsinline></video>
-                <canvas id="videoPreviewCanvas"></canvas>
-                <div class="filter-preview-indicator">🎬 Filter Live Aktif</div>
+                
                 <div class="camera-overlay">
-                    <div class="overlay-grid">
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
-                        <div class="grid-line"></div>
+                    <div class="grid-overlay">
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
+                        <div class="grid-cell"></div>
                     </div>
-                    <div class="focus-center"></div>
+                    <div class="focus-ring"></div>
                 </div>
             </div>
             
-            <div class="capture-controls">
-                <button class="capture-btn" id="captureBtn" title="Ambil foto"></button>
+            <div class="camera-controls">
+                <button class="capture-btn" id="captureBtn" aria-label="Take Photo"></button>
                 
                 <div class="ratio-selector">
-                    <button class="ratio-btn active" data-ratio="1:1">1:1</button>
-                    <button class="ratio-btn" data-ratio="3:4">3:4</button>
-                    <button class="ratio-btn" data-ratio="9:16">9:16</button>
+                    <button class="ratio-btn active" data-ratio="1:1">1:1 Square</button>
+                    <button class="ratio-btn" data-ratio="4:5">4:5 Portrait</button>
+                    <button class="ratio-btn" data-ratio="16:9">16:9 Landscape</button>
                 </div>
             </div>
         </main>
         
-        <!-- Sidebar Controls -->
+        <!-- Sidebar -->
         <aside class="sidebar">
             <!-- Effects Panel -->
             <div class="controls-panel">
-                <h3 class="panel-title">🎭 Filter Lucu & Keren</h3>
+                <div class="panel-header">
+                    <h3 class="panel-title">
+                        <i>✨</i> AI Filters
+                    </h3>
+                    <span class="effects-count" id="effectsCount">12 Filters</span>
+                </div>
                 
-                <div class="effects-grid" id="effectsGrid">
-                    <div class="filter-category">Filter Wajah Lucu</div>
-                    <!-- Effects will be added by JavaScript -->
+                <div class="effects-scroll">
+                    <div class="effects-grid" id="effectsGrid">
+                        <!-- Effects will be loaded here -->
+                    </div>
                 </div>
                 
                 <div class="slider-container">
-                    <div class="slider-label">
-                        <span>Kekuatan Filter</span>
-                        <span id="intensityValue">50%</span>
+                    <div class="slider-header">
+                        <span class="slider-label">Filter Intensity</span>
+                        <span class="slider-value" id="intensityValue">50%</span>
                     </div>
-                    <input type="range" min="0" max="100" value="50" class="slider" id="intensitySlider">
+                    <input type="range" min="0" max="100" value="50" class="custom-slider" id="intensitySlider">
+                    <div class="slider-ticks">
+                        <span class="slider-tick">Soft</span>
+                        <span class="slider-tick">Medium</span>
+                        <span class="slider-tick">Strong</span>
+                    </div>
                 </div>
             </div>
             
             <!-- Preview Panel -->
             <div class="preview-panel" id="previewPanel">
-                <h3 class="preview-title">🖼️ Pratinjau Foto</h3>
+                <div class="preview-header">
+                    <h3 class="preview-title">Photo Preview</h3>
+                    <span class="effects-count">Ready</span>
+                </div>
                 
                 <div class="preview-container">
                     <canvas id="previewCanvas"></canvas>
-                    <div class="preview-watermark">design by finzx</div>
                 </div>
                 
-                <div class="preview-controls">
-                    <button class="preview-btn download-btn" id="downloadBtn">
-                        <span>⬇️</span> Download HD
+                <div class="preview-actions">
+                    <button class="action-btn download" id="downloadBtn">
+                        <i>⬇️</i> Download
                     </button>
-                    <button class="preview-btn retake-btn" id="retakeBtn">
-                        <span>↻</span> Ambil Ulang
+                    <button class="action-btn retake" id="retakeBtn">
+                        <i>↻</i> Retake
                     </button>
                 </div>
             </div>
@@ -242,16 +891,14 @@
         
         <!-- Footer -->
         <footer class="footer">
-            <p>© 2024 <span class="footer-highlight">FinzX Photobooth</span> — Live Filter Camera Experience</p>
-            <p>Lihat efek langsung di kamera sebelum mengambil foto! ✨</p>
+            <p>© 2024 <span class="footer-brand">FinessePhoto</span> — Premium AI Photobooth System</p>
+            <p style="margin-top: 8px;">Optimized for portrait photography • Face detection enabled</p>
         </footer>
     </div>
 
     <script>
         // DOM Elements
         const videoElement = document.getElementById('videoElement');
-        const videoPreviewCanvas = document.getElementById('videoPreviewCanvas');
-        const videoPreviewCtx = videoPreviewCanvas.getContext('2d');
         const captureBtn = document.getElementById('captureBtn');
         const flashOverlay = document.getElementById('flashOverlay');
         const previewPanel = document.getElementById('previewPanel');
@@ -262,142 +909,126 @@
         const intensityValue = document.getElementById('intensityValue');
         const cameraStatus = document.getElementById('cameraStatus');
         const effectsGrid = document.getElementById('effectsGrid');
+        const effectsCount = document.getElementById('effectsCount');
         const ratioButtons = document.querySelectorAll('.ratio-btn');
-        const cameraContainer = document.getElementById('cameraContainer');
         
-        // State Variables
+        // State
         let currentStream = null;
-        let activeEffects = new Set();
+        let activeFilters = new Set();
         let currentAspectRatio = '1:1';
         let capturedImage = null;
         let previewContext = null;
-        let animationFrameId = null;
-        let currentLiveFilter = null;
+        let isPreviewActive = false;
         
-        // Define fun filters with live preview capability
-        const effects = [
-            // Funny Face Filters
+        // Premium Filters Collection
+        const filters = [
             {
-                id: 'catface',
-                name: 'Kucing Imut',
-                description: 'Kumis dan telinga kucing',
-                icon: '🐱',
-                category: 'Filter Wajah Lucu',
-                applyEffect: applyCatFaceEffect,
-                livePreview: true
+                id: 'portrait',
+                name: 'Portrait Pro',
+                description: 'Professional skin smoothing',
+                icon: '👤',
+                category: 'beauty',
+                apply: applyPortraitEffect
             },
             {
-                id: 'dogface',
-                name: 'Anjing Lucu',
-                description: 'Telinga dan hidung anjing',
-                icon: '🐶',
-                category: 'Filter Wajah Lucu',
-                applyEffect: applyDogFaceEffect,
-                livePreview: true
+                id: 'glamour',
+                name: 'Glamour Glow',
+                description: 'Soft glow & highlight',
+                icon: '🌟',
+                category: 'beauty',
+                apply: applyGlamourEffect
             },
             {
-                id: 'glasses',
-                name: 'Keren Pakai Kaca',
-                description: 'Kacamata stylish',
-                icon: '😎',
-                category: 'Filter Wajah Lucu',
-                applyEffect: applyGlassesEffect,
-                livePreview: true
-            },
-            {
-                id: 'clown',
-                name: 'Badut Lucu',
-                description: 'Hidung merah badut',
-                icon: '🤡',
-                category: 'Filter Wajah Lucu',
-                applyEffect: applyClownEffect,
-                livePreview: true
-            },
-            
-            // Color & Style Filters
-            {
-                id: 'rainbow',
-                name: 'Pelangi',
-                description: 'Warna pelangi cerah',
-                icon: '🌈',
-                category: 'Filter Warna',
-                applyEffect: applyRainbowEffect,
-                livePreview: true
-            },
-            {
-                id: 'disco',
-                name: 'Disko',
-                description: 'Lampu disko berwarna',
-                icon: '💃',
-                category: 'Filter Warna',
-                applyEffect: applyDiscoEffect,
-                livePreview: true
-            },
-            {
-                id: 'neon',
-                name: 'Neon Glow',
-                description: 'Cahaya neon menyala',
-                icon: '🔮',
-                category: 'Filter Warna',
-                applyEffect: applyNeonEffect,
-                livePreview: true
-            },
-            {
-                id: 'pixel',
-                name: 'Pixel Art',
-                description: 'Efek game retro',
-                icon: '👾',
-                category: 'Filter Keren',
-                applyEffect: applyPixelEffect,
-                livePreview: true
-            },
-            {
-                id: 'comic',
-                name: 'Buku Komik',
-                description: 'Seperti superhero',
-                icon: '🦸',
-                category: 'Filter Keren',
-                applyEffect: applyComicEffect,
-                livePreview: true
+                id: 'dramatic',
+                name: 'Dramatic Eyes',
+                description: 'Enhance eye details',
+                icon: '👁️',
+                category: 'beauty',
+                apply: applyDramaticEyesEffect
             },
             {
                 id: 'vintage',
-                name: 'Vintage',
-                description: 'Foto jadul tahun 80an',
-                icon: '📻',
-                category: 'Filter Keren',
-                applyEffect: applyVintageEffect,
-                livePreview: true
+                name: 'Vintage Film',
+                description: 'Classic film look',
+                icon: '🎞️',
+                category: 'style',
+                apply: applyVintageEffect
             },
             {
-                id: 'mirror',
-                name: 'Efek Cermin',
-                description: 'Pecahan cermin lucu',
-                icon: '🪞',
-                category: 'Filter Keren',
-                applyEffect: applyMirrorEffect,
-                livePreview: true
+                id: 'monochrome',
+                name: 'Monochrome',
+                description: 'Black & white elegance',
+                icon: '⚫',
+                category: 'style',
+                apply: applyMonochromeEffect
             },
             {
-                id: 'heart',
-                name: 'Love Heart',
-                description: 'Hati dan percikan cinta',
-                icon: '💖',
-                category: 'Filter Lucu',
-                applyEffect: applyHeartEffect,
-                livePreview: true
+                id: 'cinematic',
+                name: 'Cinematic',
+                description: 'Movie-grade colors',
+                icon: '🎬',
+                category: 'style',
+                apply: applyCinematicEffect
+            },
+            {
+                id: 'golden',
+                name: 'Golden Hour',
+                description: 'Warm sunset tones',
+                icon: '🌅',
+                category: 'color',
+                apply: applyGoldenHourEffect
+            },
+            {
+                id: 'cool',
+                name: 'Cool Tone',
+                description: 'Modern blue tones',
+                icon: '❄️',
+                category: 'color',
+                apply: applyCoolToneEffect
+            },
+            {
+                id: 'pastel',
+                name: 'Pastel Dream',
+                description: 'Soft pastel colors',
+                icon: '🎨',
+                category: 'color',
+                apply: applyPastelEffect
+            },
+            {
+                id: 'studio',
+                name: 'Studio Light',
+                description: 'Professional lighting',
+                icon: '💡',
+                category: 'lighting',
+                apply: applyStudioLightEffect
+            },
+            {
+                id: 'moody',
+                name: 'Moody Shadows',
+                description: 'Artistic contrast',
+                icon: '🎭',
+                category: 'lighting',
+                apply: applyMoodyEffect
+            },
+            {
+                id: 'halo',
+                name: 'Halo Light',
+                description: 'Angelical backlight',
+                icon: '😇',
+                category: 'special',
+                apply: applyHaloEffect
             }
         ];
 
-        // Initialize camera
+        // Initialize Camera
         async function initCamera() {
             try {
-                cameraStatus.textContent = 'Mengakses kamera...';
+                cameraStatus.textContent = 'Initializing camera...';
                 
                 const constraints = {
                     video: {
-                        width: { ideal: 1280 },
-                        height: { ideal: 720 },
+                        width: { ideal: 1920 },
+                        height: { ideal: 1080 },
                         facingMode: 'user',
                         frameRate: { ideal: 30 }
                     },
@@ -407,405 +1038,374 @@
                 currentStream = await navigator.mediaDevices.getUserMedia(constraints);
                 videoElement.srcObject = currentStream;
                 
-                // Set canvas size to match video
-                videoElement.onloadedmetadata = () => {
-                    videoPreviewCanvas.width = videoElement.videoWidth;
-                    videoPreviewCanvas.height = videoElement.videoHeight;
-                    previewCanvas.width = videoElement.videoWidth;
-                    previewCanvas.height = videoElement.videoHeight;
-                };
+                cameraStatus.textContent = 'Camera Ready • HD 1080p';
+                cameraStatus.style.color = 'var(--success)';
                 
-                cameraStatus.textContent = 'Kamera aktif • Filter Live Ready';
-                
-                // Initialize preview canvas context
+                // Setup canvas
+                previewCanvas.width = 800;
+                previewCanvas.height = 600;
                 previewContext = previewCanvas.getContext('2d');
                 
-                // Start live preview rendering
-                startLivePreview();
-                
             } catch (error) {
-                console.error('Error accessing camera:', error);
-                cameraStatus.textContent = 'Kamera tidak tersedia';
-                cameraStatus.style.color = '#ff4444';
+                console.error('Camera error:', error);
+                cameraStatus.textContent = 'Camera Unavailable';
+                cameraStatus.style.color = 'var(--error)';
                 
-                alert('Tidak dapat mengakses kamera. Pastikan kamera terhubung dan izin diberikan.');
+                showError('Please allow camera access to use FinessePhoto');
             }
         }
 
-        // Start live preview rendering
-        function startLivePreview() {
-            function renderLivePreview() {
-                if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
-                    // Set canvas size
-                    if (videoPreviewCanvas.width !== videoElement.videoWidth ||
-                        videoPreviewCanvas.height !== videoElement.videoHeight) {
-                        videoPreviewCanvas.width = videoElement.videoWidth;
-                        videoPreviewCanvas.height = videoElement.videoHeight;
+        // Create Filter Cards
+        function createFilterCards() {
+            effectsGrid.innerHTML = '';
+            
+            filters.forEach(filter => {
+                const card = document.createElement('div');
+                card.className = 'effect-card';
+                card.dataset.filterId = filter.id;
+                
+                card.innerHTML = `
+                    <div class="effect-icon">${filter.icon}</div>
+                    <div class="effect-name">${filter.name}</div>
+                    <div class="effect-desc">${filter.description}</div>
+                    <div class="effect-badge"></div>
+                `;
+                
+                card.addEventListener('click', () => {
+                    const isActive = card.classList.contains('active');
+                    
+                    if (isActive) {
+                        card.classList.remove('active');
+                        activeFilters.delete(filter.id);
+                    } else {
+                        card.classList.add('active');
+                        activeFilters.add(filter.id);
                     }
                     
-                    // Clear canvas
-                    videoPreviewCtx.clearRect(0, 0, videoPreviewCanvas.width, videoPreviewCanvas.height);
+                    // Update count
+                    updateFilterCount();
                     
-                    // Draw video frame (mirrored)
-                    videoPreviewCtx.save();
-                    videoPreviewCtx.translate(videoPreviewCanvas.width, 0);
-                    videoPreviewCtx.scale(-1, 1);
-                    videoPreviewCtx.drawImage(videoElement, 0, 0, videoPreviewCanvas.width, videoPreviewCanvas.height);
-                    videoPreviewCtx.restore();
-                    
-                    // Apply live filter if active
-                    if (currentLiveFilter) {
-                        const effect = effects.find(e => e.id === currentLiveFilter);
-                        if (effect && effect.applyEffect) {
-                            const intensity = parseInt(intensitySlider.value) / 100;
-                            effect.applyEffect(videoPreviewCtx, videoPreviewCanvas.width, videoPreviewCanvas.height, intensity);
-                        }
+                    // If preview exists, update it
+                    if (capturedImage) {
+                        renderPreview();
                     }
-                }
+                });
                 
-                animationFrameId = requestAnimationFrame(renderLivePreview);
-            }
-            
-            renderLivePreview();
-        }
-
-        // Create effect buttons with categories
-        function createEffectButtons() {
-            const categories = [...new Set(effects.map(e => e.category))];
-            
-            categories.forEach(category => {
-                // Add category header
-                const categoryHeader = document.createElement('div');
-                categoryHeader.className = 'filter-category';
-                categoryHeader.textContent = category;
-                effectsGrid.appendChild(categoryHeader);
-                
-                // Add effects for this category
-                effects
-                    .filter(effect => effect.category === category)
-                    .forEach(effect => {
-                        const effectElement = document.createElement('div');
-                        effectElement.className = 'effect-item';
-                        effectElement.dataset.id = effect.id;
-                        effectElement.innerHTML = `
-                            <div class="effect-icon">${effect.icon}</div>
-                            <div class="effect-name">${effect.name}</div>
-                            <div class="effect-desc">${effect.description}</div>
-                            <div class="effect-badge"></div>
-                        `;
-                        
-                        effectElement.addEventListener('click', () => {
-                            // Toggle active state
-                            const isActive = effectElement.classList.contains('active');
-                            
-                            // Remove active from all effects
-                            document.querySelectorAll('.effect-item').forEach(el => {
-                                el.classList.remove('active');
-                            });
-                            
-                            // Toggle live preview
-                            if (!isActive) {
-                                effectElement.classList.add('active');
-                                currentLiveFilter = effect.id;
-                                cameraContainer.classList.add('live-filter-active');
-                            } else {
-                                currentLiveFilter = null;
-                                cameraContainer.classList.remove('live-filter-active');
-                            }
-                            
-                            // Add to active effects for photo capture
-                            if (!isActive) {
-                                activeEffects.add(effect.id);
-                            } else {
-                                activeEffects.delete(effect.id);
-                            }
-                        });
-                        
-                        effectsGrid.appendChild(effectElement);
-                    });
+                effectsGrid.appendChild(card);
             });
         }
 
-        // Fun filter effect functions
-        function applyCatFaceEffect(ctx, width, height, intensity) {
-            // Draw cat ears
-            const earSize = 80 * intensity;
-            const earColor = '#FFB6C1'; // Light pink
-            
-            // Left ear
-            ctx.fillStyle = earColor;
-            ctx.beginPath();
-            ctx.moveTo(width * 0.4, height * 0.2);
-            ctx.lineTo(width * 0.35, height * 0.1);
-            ctx.lineTo(width * 0.45, height * 0.15);
-            ctx.closePath();
-            ctx.fill();
-            
-            // Right ear
-            ctx.beginPath();
-            ctx.moveTo(width * 0.6, height * 0.2);
-            ctx.lineTo(width * 0.65, height * 0.1);
-            ctx.lineTo(width * 0.55, height * 0.15);
-            ctx.closePath();
-            ctx.fill();
-            
-            // Draw cat whiskers
-            ctx.strokeStyle = 'white';
-            ctx.lineWidth = 2 * intensity;
-            
-            // Left whiskers
-            for (let i = 0; i < 3; i++) {
-                ctx.beginPath();
-                ctx.moveTo(width * 0.4, height * 0.45);
-                ctx.lineTo(width * 0.3 - i * 10, height * 0.4 + i * 10);
-                ctx.stroke();
+        // Update filter count
+        function updateFilterCount() {
+            const activeCount = activeFilters.size;
+            effectsCount.textContent = `${activeCount} Active • ${filters.length} Total`;
+        }
+
+        // Aspect Ratio Controls
+        function initRatioControls() {
+            ratioButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    ratioButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentAspectRatio = btn.dataset.ratio;
+                    
+                    // Update camera container aspect ratio
+                    const container = document.querySelector('.camera-container');
+                    switch(currentAspectRatio) {
+                        case '1:1':
+                            container.style.aspectRatio = '1/1';
+                            break;
+                        case '4:5':
+                            container.style.aspectRatio = '4/5';
+                            break;
+                        case '16:9':
+                            container.style.aspectRatio = '16/9';
+                            break;
+                    }
+                });
+            });
+        }
+
+        // Capture Photo
+        captureBtn.addEventListener('click', () => {
+            if (!currentStream) {
+                showError('Camera not ready');
+                return;
             }
             
-            // Right whiskers
-            for (let i = 0; i < 3; i++) {
-                ctx.beginPath();
-                ctx.moveTo(width * 0.6, height * 0.45);
-                ctx.lineTo(width * 0.7 + i * 10, height * 0.4 + i * 10);
-                ctx.stroke();
-            }
+            // Flash effect
+            triggerFlash();
             
-            // Draw cat nose
-            ctx.fillStyle = 'pink';
-            ctx.beginPath();
-            ctx.arc(width * 0.5, height * 0.45, 10 * intensity, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        function applyDogFaceEffect(ctx, width, height, intensity) {
-            // Draw dog ears (floppy)
-            const earColor = '#8B4513'; // Saddle brown
-            
-            // Left ear
-            ctx.fillStyle = earColor;
-            ctx.beginPath();
-            ctx.ellipse(width * 0.35, height * 0.3, 40 * intensity, 60 * intensity, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Right ear
-            ctx.beginPath();
-            ctx.ellipse(width * 0.65, height * 0.3, 40 * intensity, 60 * intensity, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Draw dog nose
-            ctx.fillStyle = 'black';
-            ctx.beginPath();
-            ctx.ellipse(width * 0.5, height * 0.5, 25 * intensity, 15 * intensity, 0, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Draw tongue
-            ctx.fillStyle = '#FF69B4';
-            ctx.beginPath();
-            ctx.ellipse(width * 0.5, height * 0.6, 20 * intensity, 30 * intensity, Math.PI, 0, Math.PI);
-            ctx.fill();
-        }
-
-        function applyGlassesEffect(ctx, width, height, intensity) {
-            // Draw glasses frame
-            ctx.strokeStyle = '#FFD700'; // Gold
-            ctx.lineWidth = 8 * intensity;
-            
-            // Left lens
-            ctx.beginPath();
-            ctx.arc(width * 0.4, height * 0.45, 50 * intensity, 0, Math.PI * 2);
-            ctx.stroke();
-            
-            // Right lens
-            ctx.beginPath();
-            ctx.arc(width * 0.6, height * 0.45, 50 * intensity, 0, Math.PI * 2);
-            ctx.stroke();
-            
-            // Bridge
-            ctx.beginPath();
-            ctx.moveTo(width * 0.45, height * 0.45);
-            ctx.lineTo(width * 0.55, height * 0.45);
-            ctx.stroke();
-            
-            // Add shine effect
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-            ctx.beginPath();
-            ctx.arc(width * 0.45, height * 0.4, 15 * intensity, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        function applyClownEffect(ctx, width, height, intensity) {
-            // Draw red clown nose
-            ctx.fillStyle = '#FF0000';
-            ctx.beginPath();
-            ctx.arc(width * 0.5, height * 0.4, 30 * intensity, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Draw clown hat
-            ctx.fillStyle = '#9370DB';
-            ctx.beginPath();
-            ctx.moveTo(width * 0.4, height * 0.15);
-            ctx.lineTo(width * 0.6, height * 0.15);
-            ctx.lineTo(width * 0.5, height * 0.05);
-            ctx.closePath();
-            ctx.fill();
-            
-            // Draw colorful dots on face
-            const colors = ['#FF69B4', '#00FFFF', '#00FF00', '#FFFF00'];
-            for (let i = 0; i < 6; i++) {
-                ctx.fillStyle = colors[i % colors.length];
-                const x = width * (0.3 + Math.random() * 0.4);
-                const y = height * (0.5 + Math.random() * 0.3);
-                const radius = 10 + Math.random() * 15 * intensity;
-                
-                ctx.beginPath();
-                ctx.arc(x, y, radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function applyRainbowEffect(ctx, width, height, intensity) {
-            // Create rainbow gradient overlay
-            const gradient = ctx.createLinearGradient(0, 0, width, 0);
-            gradient.addColorStop(0, 'rgba(255, 0, 0, 0.3)');     // Red
-            gradient.addColorStop(0.2, 'rgba(255, 165, 0, 0.3)'); // Orange
-            gradient.addColorStop(0.4, 'rgba(255, 255, 0, 0.3)'); // Yellow
-            gradient.addColorStop(0.6, 'rgba(0, 255, 0, 0.3)');   // Green
-            gradient.addColorStop(0.8, 'rgba(0, 0, 255, 0.3)');   // Blue
-            gradient.addColorStop(1, 'rgba(148, 0, 211, 0.3)');   // Violet
-            
-            ctx.fillStyle = gradient;
-            ctx.globalCompositeOperation = 'overlay';
-            ctx.fillRect(0, 0, width, height);
-            ctx.globalCompositeOperation = 'source-over';
-            
-            // Add rainbow sparkles
-            for (let i = 0; i < 20 * intensity; i++) {
-                const x = Math.random() * width;
-                const y = Math.random() * height;
-                const radius = 3 + Math.random() * 7;
-                const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
-                
-                ctx.fillStyle = color;
-                ctx.beginPath();
-                ctx.arc(x, y, radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function applyDiscoEffect(ctx, width, height, intensity) {
-            // Apply color cycling
-            const time = Date.now() / 1000;
-            const hue = (time * 180) % 360;
-            
-            // Colorful disco overlay
-            const gradient = ctx.createRadialGradient(
-                width / 2, height / 2, 0,
-                width / 2, height / 2, Math.max(width, height) / 2
-            );
-            gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, ${0.3 * intensity})`);
-            gradient.addColorStop(0.5, `hsla(${(hue + 120) % 360}, 100%, 50%, ${0.2 * intensity})`);
-            gradient.addColorStop(1, `hsla(${(hue + 240) % 360}, 100%, 50%, ${0.1 * intensity})`);
-            
-            ctx.fillStyle = gradient;
-            ctx.globalCompositeOperation = 'overlay';
-            ctx.fillRect(0, 0, width, height);
-            ctx.globalCompositeOperation = 'source-over';
-            
-            // Add disco ball reflections
-            for (let i = 0; i < 30 * intensity; i++) {
-                const x = Math.random() * width;
-                const y = Math.random() * height;
-                const size = 2 + Math.random() * 8;
-                
-                ctx.fillStyle = `hsla(${Math.random() * 360}, 100%, 70%, 0.8)`;
-                ctx.fillRect(x, y, size, size);
-            }
-        }
-
-        function applyNeonEffect(ctx, width, height, intensity) {
-            // Apply neon glow to edges
-            const imageData = ctx.getImageData(0, 0, width, height);
-            const data = imageData.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                const r = data[i];
-                const g = data[i + 1];
-                const b = data[i + 2];
-                
-                // Boost saturation and brightness
-                const max = Math.max(r, g, b);
-                if (max > 150) {
-                    data[i] = Math.min(255, r + 100 * intensity);
-                    data[i + 1] = Math.min(255, g + 100 * intensity);
-                    data[i + 2] = Math.min(255, b + 100 * intensity);
-                }
-            }
-            
-            ctx.putImageData(imageData, 0, 0);
-            
-            // Add neon border
-            ctx.strokeStyle = `hsl(${Date.now() / 50 % 360}, 100%, 70%)`;
-            ctx.lineWidth = 5 * intensity;
-            ctx.strokeRect(10, 10, width - 20, height - 20);
-        }
-
-        function applyPixelEffect(ctx, width, height, intensity) {
-            const pixelSize = Math.max(1, Math.floor(20 * (1 - intensity) + 5));
-            
-            // Create temporary canvas for pixelation
+            // Create canvas for capture
             const tempCanvas = document.createElement('canvas');
             const tempCtx = tempCanvas.getContext('2d');
-            tempCanvas.width = Math.floor(width / pixelSize);
-            tempCanvas.height = Math.floor(height / pixelSize);
             
-            // Draw scaled down version
-            tempCtx.drawImage(ctx.canvas, 0, 0, tempCanvas.width, tempCanvas.height);
+            // Set dimensions
+            tempCanvas.width = videoElement.videoWidth;
+            tempCanvas.height = videoElement.videoHeight;
             
-            // Draw scaled up (pixelated)
-            ctx.imageSmoothingEnabled = false;
-            ctx.drawImage(tempCanvas, 0, 0, tempCanvas.width, tempCanvas.height, 0, 0, width, height);
-            ctx.imageSmoothingEnabled = true;
+            // Draw video frame (mirrored)
+            tempCtx.translate(tempCanvas.width, 0);
+            tempCtx.scale(-1, 1);
+            tempCtx.drawImage(videoElement, 0, 0, tempCanvas.width, tempCanvas.height);
+            tempCtx.setTransform(1, 0, 0, 1, 0, 0);
             
-            // Add scanlines for retro effect
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-            for (let y = 0; y < height; y += 2) {
-                ctx.fillRect(0, y, width, 1);
-            }
+            // Apply active filters
+            const intensity = parseInt(intensitySlider.value) / 100;
+            activeFilters.forEach(filterId => {
+                const filter = filters.find(f => f.id === filterId);
+                if (filter && filter.apply) {
+                    filter.apply(tempCtx, tempCanvas.width, tempCanvas.height, intensity);
+                }
+            });
+            
+            // Store image
+            capturedImage = tempCanvas;
+            
+            // Show preview
+            previewPanel.classList.add('active');
+            isPreviewActive = true;
+            
+            // Render preview
+            renderPreview();
+        });
+
+        // Trigger flash animation
+        function triggerFlash() {
+            flashOverlay.classList.add('active');
+            setTimeout(() => {
+                flashOverlay.classList.remove('active');
+            }, 400);
         }
 
-        function applyComicEffect(ctx, width, height, intensity) {
+        // Render preview with aspect ratio
+        function renderPreview() {
+            if (!capturedImage || !previewContext) return;
+            
+            // Clear canvas
+            previewContext.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+            
+            // Calculate crop based on aspect ratio
+            let sourceWidth = capturedImage.width;
+            let sourceHeight = capturedImage.height;
+            let sourceX = 0;
+            let sourceY = 0;
+            
+            let destWidth = previewCanvas.width;
+            let destHeight = previewCanvas.height;
+            let destX = 0;
+            let destY = 0;
+            
+            switch(currentAspectRatio) {
+                case '1:1':
+                    const size = Math.min(sourceWidth, sourceHeight);
+                    sourceX = (sourceWidth - size) / 2;
+                    sourceY = (sourceHeight - size) / 2;
+                    sourceWidth = sourceHeight = size;
+                    destHeight = destWidth;
+                    break;
+                    
+                case '4:5':
+                    const targetHeight = sourceWidth * (5/4);
+                    if (targetHeight > sourceHeight) {
+                        const targetWidth = sourceHeight * (4/5);
+                        sourceX = (sourceWidth - targetWidth) / 2;
+                        sourceWidth = targetWidth;
+                    } else {
+                        sourceY = (sourceHeight - targetHeight) / 2;
+                        sourceHeight = targetHeight;
+                    }
+                    destHeight = destWidth * (5/4);
+                    destY = (previewCanvas.height - destHeight) / 2;
+                    break;
+                    
+                case '16:9':
+                    const targetHeight16 = sourceWidth * (9/16);
+                    if (targetHeight16 > sourceHeight) {
+                        const targetWidth16 = sourceHeight * (16/9);
+                        sourceX = (sourceWidth - targetWidth16) / 2;
+                        sourceWidth = targetWidth16;
+                    } else {
+                        sourceY = (sourceHeight - targetHeight16) / 2;
+                        sourceHeight = targetHeight16;
+                    }
+                    destHeight = destWidth * (9/16);
+                    destY = (previewCanvas.height - destHeight) / 2;
+                    break;
+            }
+            
+            // Draw image
+            previewContext.drawImage(
+                capturedImage,
+                sourceX, sourceY, sourceWidth, sourceHeight,
+                destX, destY, destWidth, destHeight
+            );
+            
+            // Add watermark
+            addWatermark();
+        }
+
+        // Add watermark
+        function addWatermark() {
+            previewContext.font = '400 14px Poppins';
+            previewContext.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            previewContext.textAlign = 'right';
+            previewContext.textBaseline = 'bottom';
+            previewContext.fillText('FinessePhoto', previewCanvas.width - 15, previewCanvas.height - 15);
+        }
+
+        // Download photo
+        downloadBtn.addEventListener('click', () => {
+            if (!capturedImage) return;
+            
+            const link = document.createElement('a');
+            link.download = `finessephoto_${Date.now()}.jpg`;
+            
+            // Create high-quality version
+            const outputCanvas = document.createElement('canvas');
+            const outputCtx = outputCanvas.getContext('2d');
+            
+            // Set high resolution
+            outputCanvas.width = 2000;
+            outputCanvas.height = 2000;
+            
+            // Draw with quality
+            outputCtx.imageSmoothingEnabled = true;
+            outputCtx.imageSmoothingQuality = 'high';
+            
+            // Calculate aspect ratio for output
+            let outputWidth, outputHeight;
+            switch(currentAspectRatio) {
+                case '1:1':
+                    outputWidth = outputHeight = 2000;
+                    break;
+                case '4:5':
+                    outputWidth = 1600;
+                    outputHeight = 2000;
+                    break;
+                case '16:9':
+                    outputWidth = 2000;
+                    outputHeight = 1125;
+                    break;
+            }
+            
+            outputCtx.drawImage(capturedImage, 0, 0, outputWidth, outputHeight);
+            
+            // Add watermark
+            outputCtx.font = '400 24px Poppins';
+            outputCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            outputCtx.textAlign = 'right';
+            outputCtx.textBaseline = 'bottom';
+            outputCtx.fillText('FinessePhoto', outputWidth - 30, outputHeight - 30);
+            
+            link.href = outputCanvas.toDataURL('image/jpeg', 0.95);
+            link.click();
+            
+            // Feedback
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<i>✅</i> Downloaded!';
+            downloadBtn.style.opacity = '0.8';
+            
+            setTimeout(() => {
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.style.opacity = '1';
+            }, 2000);
+        });
+
+        // Retake photo
+        retakeBtn.addEventListener('click', () => {
+            previewPanel.classList.remove('active');
+            capturedImage = null;
+            isPreviewActive = false;
+        });
+
+        // Intensity slider
+        intensitySlider.addEventListener('input', () => {
+            const value = intensitySlider.value;
+            intensityValue.textContent = `${value}%`;
+            
+            if (capturedImage) {
+                renderPreview();
+            }
+        });
+
+        // Error message
+        function showError(message) {
+            cameraStatus.textContent = message;
+            cameraStatus.style.color = 'var(--error)';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initCamera();
+            createFilterCards();
+            initRatioControls();
+            updateFilterCount();
+            
+            // Set initial intensity value
+            intensityValue.textContent = `${intensitySlider.value}%`;
+        });
+
+        // Cleanup
+        window.addEventListener('beforeunload', () => {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+            }
+        });
+
+        // Filter Effect Functions
+        function applyPortraitEffect(ctx, width, height, intensity) {
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            // Simple skin smoothing
+            for (let i = 0; i < data.length; i += 4) {
+                // Reduce noise (simple blur effect)
+                if (i > width * 4) {
+                    const prev = i - width * 4;
+                    data[i] = (data[i] + data[prev]) / 2;
+                    data[i + 1] = (data[i + 1] + data[prev + 1]) / 2;
+                    data[i + 2] = (data[i + 2] + data[prev + 2]) / 2;
+                }
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function applyGlamourEffect(ctx, width, height, intensity) {
+            // Soft glow overlay
+            const gradient = ctx.createRadialGradient(
+                width / 2, height / 3, 0,
+                width / 2, height / 3, Math.max(width, height) / 2
+            );
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${0.2 * intensity})`);
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            
+            ctx.fillStyle = gradient;
+            ctx.globalCompositeOperation = 'overlay';
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        function applyDramaticEyesEffect(ctx, width, height, intensity) {
+            // This would require face detection
+            // For now, apply general contrast boost
             const imageData = ctx.getImageData(0, 0, width, height);
             const data = imageData.data;
             
             for (let i = 0; i < data.length; i += 4) {
-                // Posterize effect
-                const levels = 4;
-                data[i] = Math.floor(data[i] / 64) * 64;     // Red
-                data[i + 1] = Math.floor(data[i + 1] / 64) * 64; // Green
-                data[i + 2] = Math.floor(data[i + 2] / 64) * 64; // Blue
-                
-                // Boost contrast
-                data[i] = data[i] < 128 ? data[i] * 0.7 : Math.min(255, data[i] * 1.3);
-                data[i + 1] = data[i + 1] < 128 ? data[i + 1] * 0.7 : Math.min(255, data[i + 1] * 1.3);
-                data[i + 2] = data[i + 2] < 128 ? data[i + 2] * 0.7 : Math.min(255, data[i + 2] * 1.3);
+                // Increase contrast
+                const contrast = 1.0 + 0.5 * intensity;
+                data[i] = ((data[i] - 128) * contrast) + 128;
+                data[i + 1] = ((data[i + 1] - 128) * contrast) + 128;
+                data[i + 2] = ((data[i + 2] - 128) * contrast) + 128;
             }
             
             ctx.putImageData(imageData, 0, 0);
-            
-            // Add comic dots pattern
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-            for (let x = 0; x < width; x += 10) {
-                for (let y = 0; y < height; y += 10) {
-                    if ((x + y) % 20 === 0) {
-                        ctx.beginPath();
-                        ctx.arc(x, y, 1 * intensity, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                }
-            }
         }
 
         function applyVintageEffect(ctx, width, height, intensity) {
-            // Apply sepia tone
+            // Sepia tone
             const imageData = ctx.getImageData(0, 0, width, height);
             const data = imageData.data;
             
@@ -814,16 +1414,9 @@
                 const g = data[i + 1];
                 const b = data[i + 2];
                 
-                // Sepia formula
                 data[i] = Math.min(255, (r * 0.393) + (g * 0.769) + (b * 0.189));
                 data[i + 1] = Math.min(255, (r * 0.349) + (g * 0.686) + (b * 0.168));
                 data[i + 2] = Math.min(255, (r * 0.272) + (g * 0.534) + (b * 0.131));
-                
-                // Add fade effect
-                const fade = 20 * intensity;
-                data[i] = Math.max(0, data[i] - fade);
-                data[i + 1] = Math.max(0, data[i + 1] - fade);
-                data[i + 2] = Math.max(0, data[i + 2] - fade);
             }
             
             ctx.putImageData(imageData, 0, 0);
@@ -834,99 +1427,95 @@
                 width / 2, height / 2, Math.max(width, height) / 2
             );
             gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
-            gradient.addColorStop(1, `rgba(139, 69, 19, ${0.3 * intensity})`); // Brown vignette
+            gradient.addColorStop(1, `rgba(0, 0, 0, ${0.3 * intensity})`);
             
             ctx.fillStyle = gradient;
             ctx.globalCompositeOperation = 'multiply';
             ctx.fillRect(0, 0, width, height);
             ctx.globalCompositeOperation = 'source-over';
-            
-            // Add film grain
-            const grainData = ctx.createImageData(width, height);
-            const grain = grainData.data;
-            
-            for (let i = 0; i < grain.length; i += 4) {
-                const value = Math.random() * 50 * intensity;
-                grain[i] = value;
-                grain[i + 1] = value;
-                grain[i + 2] = value;
-                grain[i + 3] = 30 * intensity;
-            }
-            
-            const grainCanvas = document.createElement('canvas');
-            const grainCtx = grainCanvas.getContext('2d');
-            grainCanvas.width = width;
-            grainCanvas.height = height;
-            grainCtx.putImageData(grainData, 0, 0);
-            
-            ctx.globalAlpha = 0.3 * intensity;
-            ctx.drawImage(grainCanvas, 0, 0);
-            ctx.globalAlpha = 1;
         }
 
-        function applyMirrorEffect(ctx, width, height, intensity) {
-            // Create mirrored effect
-            const halfWidth = width / 2;
+        function applyMonochromeEffect(ctx, width, height, intensity) {
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
             
-            // Copy left half to right half (mirrored)
-            ctx.save();
-            ctx.translate(width, 0);
-            ctx.scale(-1, 1);
-            ctx.drawImage(ctx.canvas, 0, 0, halfWidth, height, 0, 0, halfWidth, height);
-            ctx.restore();
-            
-            // Add mirror crack effect
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
-            ctx.lineWidth = 2 * intensity;
-            
-            for (let i = 0; i < 5; i++) {
-                const startX = halfWidth + Math.random() * 20 - 10;
-                const startY = Math.random() * height;
-                const length = 20 + Math.random() * 50;
-                
-                ctx.beginPath();
-                ctx.moveTo(startX, startY);
-                for (let j = 0; j < 5; j++) {
-                    ctx.lineTo(
-                        startX + (j + 1) * 10,
-                        startY + Math.random() * 20 - 10
-                    );
-                }
-                ctx.stroke();
+            for (let i = 0; i < data.length; i += 4) {
+                const avg = data[i] * 0.3 + data[i + 1] * 0.59 + data[i + 2] * 0.11;
+                data[i] = avg;
+                data[i + 1] = avg;
+                data[i + 2] = avg;
             }
+            
+            ctx.putImageData(imageData, 0, 0);
         }
 
-        function applyHeartEffect(ctx, width, height, intensity) {
-            // Draw floating hearts
-            const time = Date.now() / 1000;
+        function applyCinematicEffect(ctx, width, height, intensity) {
+            // Blue/orange color grade
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
             
-            for (let i = 0; i < 15 * intensity; i++) {
-                const x = (width * 0.3) + (Math.sin(time + i) * width * 0.4);
-                const y = (time * 50 + i * 40) % height;
-                const size = 15 + Math.sin(time * 2 + i) * 10;
-                
-                // Draw heart shape
-                ctx.fillStyle = `rgba(255, ${100 + i * 10}, ${150 + i * 10}, 0.7)`;
-                ctx.save();
-                ctx.translate(x, y);
-                ctx.rotate(Math.sin(time + i) * 0.2);
-                
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.bezierCurveTo(-size/2, -size/2, -size, size/3, 0, size);
-                ctx.bezierCurveTo(size, size/3, size/2, -size/2, 0, 0);
-                ctx.fill();
-                
-                ctx.restore();
+            for (let i = 0; i < data.length; i += 4) {
+                // Boost oranges, reduce blues
+                data[i] = Math.min(255, data[i] * 1.1); // Red
+                data[i + 2] = Math.max(0, data[i + 2] * 0.9); // Blue
             }
             
-            // Add heart glow overlay
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function applyGoldenHourEffect(ctx, width, height, intensity) {
+            // Warm golden overlay
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, `rgba(255, 200, 100, ${0.3 * intensity})`);
+            gradient.addColorStop(1, `rgba(255, 150, 50, ${0.2 * intensity})`);
+            
+            ctx.fillStyle = gradient;
+            ctx.globalCompositeOperation = 'overlay';
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        function applyCoolToneEffect(ctx, width, height, intensity) {
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                // Boost blues, reduce reds
+                data[i] = Math.max(0, data[i] * 0.9); // Red
+                data[i + 2] = Math.min(255, data[i + 2] * 1.1); // Blue
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function applyPastelEffect(ctx, width, height, intensity) {
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                // Reduce saturation, increase brightness
+                const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                data[i] = avg * intensity + data[i] * (1 - intensity);
+                data[i + 1] = avg * intensity + data[i + 1] * (1 - intensity);
+                data[i + 2] = avg * intensity + data[i + 2] * (1 - intensity);
+                
+                // Brighten
+                data[i] = Math.min(255, data[i] + 30 * intensity);
+                data[i + 1] = Math.min(255, data[i + 1] + 30 * intensity);
+                data[i + 2] = Math.min(255, data[i + 2] + 30 * intensity);
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function applyStudioLightEffect(ctx, width, height, intensity) {
+            // Simulate studio lighting
             const gradient = ctx.createRadialGradient(
-                width / 2, height / 2, 0,
-                width / 2, height / 2, Math.max(width, height) / 2
+                width / 2, height / 3, 0,
+                width / 2, height / 3, width
             );
-            gradient.addColorStop(0, 'rgba(255, 182, 193, 0)');
-            gradient.addColorStop(1, `rgba(255, 105, 180, ${0.2 * intensity})`);
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${0.4 * intensity})`);
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
             
             ctx.fillStyle = gradient;
             ctx.globalCompositeOperation = 'screen';
@@ -934,247 +1523,39 @@
             ctx.globalCompositeOperation = 'source-over';
         }
 
-        // Aspect ratio handling (keep as is)
-        function initAspectRatioControls() {
-            ratioButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    ratioButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    currentAspectRatio = button.dataset.ratio;
-                    
-                    const cameraContainer = document.querySelector('.camera-container');
-                    switch(currentAspectRatio) {
-                        case '1:1':
-                            cameraContainer.style.aspectRatio = '1/1';
-                            break;
-                        case '3:4':
-                            cameraContainer.style.aspectRatio = '3/4';
-                            break;
-                        case '9:16':
-                            cameraContainer.style.aspectRatio = '9/16';
-                            break;
-                    }
-                });
-            });
-        }
-
-        // Capture photo (updated to use current live filter)
-        captureBtn.addEventListener('click', async () => {
-            if (!currentStream) {
-                alert('Kamera belum diinisialisasi. Silakan refresh halaman.');
-                return;
-            }
+        function applyMoodyEffect(ctx, width, height, intensity) {
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
             
-            // Trigger flash effect
-            triggerFlashEffect();
-            
-            // Create temporary canvas for capture
-            const tempCanvas = document.createElement('canvas');
-            const tempContext = tempCanvas.getContext('2d');
-            
-            // Set canvas size based on video dimensions
-            tempCanvas.width = videoElement.videoWidth;
-            tempCanvas.height = videoElement.videoHeight;
-            
-            // Draw current video frame to canvas (mirrored)
-            tempContext.translate(tempCanvas.width, 0);
-            tempContext.scale(-1, 1);
-            tempContext.drawImage(videoElement, 0, 0, tempCanvas.width, tempCanvas.height);
-            tempContext.setTransform(1, 0, 0, 1, 0, 0);
-            
-            // Apply active effects to captured image
-            const intensity = parseInt(intensitySlider.value) / 100;
-            activeEffects.forEach(effectId => {
-                const effect = effects.find(e => e.id === effectId);
-                if (effect && effect.applyEffect) {
-                    effect.applyEffect(tempContext, tempCanvas.width, tempCanvas.height, intensity);
+            for (let i = 0; i < data.length; i += 4) {
+                // Darken shadows
+                const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                if (avg < 128) {
+                    const darken = (128 - avg) * 0.5 * intensity;
+                    data[i] = Math.max(0, data[i] - darken);
+                    data[i + 1] = Math.max(0, data[i + 1] - darken);
+                    data[i + 2] = Math.max(0, data[i + 2] - darken);
                 }
-            });
-            
-            // Store captured image data
-            capturedImage = tempCanvas;
-            
-            // Show preview panel
-            previewPanel.classList.add('active');
-            
-            // Render preview
-            renderPreview();
-        });
-
-        // Trigger flash animation
-        function triggerFlashEffect() {
-            flashOverlay.classList.add('active');
-            captureBtn.classList.add('flash');
-            
-            setTimeout(() => {
-                flashOverlay.classList.remove('active');
-                captureBtn.classList.remove('flash');
-            }, 300);
-        }
-
-        // Render preview (keep as is)
-        function renderPreview() {
-            if (!capturedImage || !previewContext) return;
-            
-            // Clear preview canvas
-            previewCanvas.width = capturedImage.width;
-            previewCanvas.height = capturedImage.height;
-            
-            // Apply aspect ratio crop
-            let cropWidth = capturedImage.width;
-            let cropHeight = capturedImage.height;
-            let offsetX = 0;
-            let offsetY = 0;
-            
-            switch(currentAspectRatio) {
-                case '1:1':
-                    const size = Math.min(capturedImage.width, capturedImage.height);
-                    cropWidth = size;
-                    cropHeight = size;
-                    offsetX = (capturedImage.width - size) / 2;
-                    offsetY = (capturedImage.height - size) / 2;
-                    break;
-                    
-                case '3:4':
-                    cropHeight = capturedImage.width * (4/3);
-                    if (cropHeight > capturedImage.height) {
-                        cropHeight = capturedImage.height;
-                        cropWidth = capturedImage.height * (3/4);
-                        offsetX = (capturedImage.width - cropWidth) / 2;
-                    } else {
-                        offsetY = (capturedImage.height - cropHeight) / 2;
-                    }
-                    break;
-                    
-                case '9:16':
-                    cropHeight = capturedImage.width * (16/9);
-                    if (cropHeight > capturedImage.height) {
-                        cropHeight = capturedImage.height;
-                        cropWidth = capturedImage.height * (9/16);
-                        offsetX = (capturedImage.width - cropWidth) / 2;
-                    } else {
-                        offsetY = (capturedImage.height - cropHeight) / 2;
-                    }
-                    break;
             }
             
-            // Draw captured image with crop
-            previewContext.drawImage(
-                capturedImage, 
-                offsetX, offsetY, cropWidth, cropHeight,
-                0, 0, previewCanvas.width, previewCanvas.height
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function applyHaloEffect(ctx, width, height, intensity) {
+            // Create halo effect
+            const gradient = ctx.createRadialGradient(
+                width / 2, height / 3, 0,
+                width / 2, height / 3, width * 0.7
             );
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${0.6 * intensity})`);
+            gradient.addColorStop(0.5, `rgba(255, 255, 255, ${0.2 * intensity})`);
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
             
-            // Apply watermark
-            applyWatermark(previewContext, previewCanvas.width, previewCanvas.height);
+            ctx.fillStyle = gradient;
+            ctx.globalCompositeOperation = 'screen';
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'source-over';
         }
-
-        function applyWatermark(ctx, width, height) {
-            ctx.font = 'italic 300 24px Inter, sans-serif';
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            ctx.textAlign = 'right';
-            ctx.textBaseline = 'bottom';
-            
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-            ctx.shadowBlur = 4;
-            ctx.shadowOffsetX = 2;
-            ctx.shadowOffsetY = 2;
-            
-            ctx.fillText('design by finzx', width - 20, height - 20);
-            
-            ctx.shadowColor = 'transparent';
-            ctx.shadowBlur = 0;
-            ctx.shadowOffsetX = 0;
-            ctx.shadowOffsetY = 0;
-        }
-
-        // Download photo (keep as is)
-        downloadBtn.addEventListener('click', () => {
-            if (!capturedImage) return;
-            
-            const outputCanvas = document.createElement('canvas');
-            const outputCtx = outputCanvas.getContext('2d');
-            
-            let outputWidth, outputHeight;
-            
-            switch(currentAspectRatio) {
-                case '1:1':
-                    outputWidth = outputHeight = 2000;
-                    break;
-                case '3:4':
-                    outputWidth = 1500;
-                    outputHeight = 2000;
-                    break;
-                case '9:16':
-                    outputWidth = 1125;
-                    outputHeight = 2000;
-                    break;
-            }
-            
-            outputCanvas.width = outputWidth;
-            outputCanvas.height = outputHeight;
-            
-            outputCtx.imageSmoothingEnabled = true;
-            outputCtx.imageSmoothingQuality = 'high';
-            outputCtx.drawImage(previewCanvas, 0, 0, outputWidth, outputHeight);
-            
-            outputCtx.font = 'italic 300 36px Inter, sans-serif';
-            outputCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            outputCtx.textAlign = 'right';
-            outputCtx.textBaseline = 'bottom';
-            outputCtx.fillText('design by finzx', outputWidth - 30, outputHeight - 30);
-            
-            const link = document.createElement('a');
-            link.download = `finzx_photobooth_${new Date().getTime()}.jpg`;
-            link.href = outputCanvas.toDataURL('image/jpeg', 0.95);
-            link.click();
-            
-            const originalText = downloadBtn.innerHTML;
-            downloadBtn.innerHTML = '<span>✅</span> Terdownload!';
-            downloadBtn.style.background = 'linear-gradient(135deg, #00ff88, #00cc66)';
-            
-            setTimeout(() => {
-                downloadBtn.innerHTML = originalText;
-                downloadBtn.style.background = 'linear-gradient(135deg, var(--accent-pastel), var(--accent-purple))';
-            }, 2000);
-        });
-
-        // Retake photo
-        retakeBtn.addEventListener('click', () => {
-            previewPanel.classList.remove('active');
-            capturedImage = null;
-        });
-
-        // Intensity slider update
-        intensitySlider.addEventListener('input', () => {
-            intensityValue.textContent = `${intensitySlider.value}%`;
-            // Live preview automatically updates through animation loop
-        });
-
-        // Initialize application
-        document.addEventListener('DOMContentLoaded', () => {
-            initCamera();
-            createEffectButtons();
-            initAspectRatioControls();
-            
-            intensityValue.textContent = `${intensitySlider.value}%`;
-            
-            window.addEventListener('resize', () => {
-                if (capturedImage) {
-                    renderPreview();
-                }
-            });
-        });
-
-        // Clean up
-        window.addEventListener('beforeunload', () => {
-            if (currentStream) {
-                currentStream.getTracks().forEach(track => track.stop());
-            }
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-            }
-        });
     </script>
 </body>
 </html>
