@@ -3,52 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinessePhoto | AI-Powered Photobooth</title>
+    <title>NexusBooth 2026 | AI Multi-Shot Photobooth</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Modern Color Palette */
-            --bg-primary: #0a0b0e;
-            --bg-secondary: #111318;
-            --bg-card: #1a1d24;
-            --bg-surface: #242830;
+            /* Futuristic 2026 Color Palette */
+            --bg-deep: #050510;
+            --bg-space: #0a0b1a;
+            --bg-holo: #11132a;
+            --bg-card: #1a1d3a;
+            --bg-surface: #24284d;
             
-            /* Accent Colors */
-            --accent-primary: #6366f1;
-            --accent-secondary: #8b5cf6;
-            --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6);
-            --accent-glow: rgba(99, 102, 241, 0.3);
+            /* Neon Cyberpunk Colors */
+            --neon-pink: #ff00ff;
+            --neon-cyan: #00ffff;
+            --neon-green: #00ffaa;
+            --neon-purple: #9d00ff;
+            --neon-yellow: #ffff00;
+            --neon-orange: #ff6b00;
             
-            /* Neutral Colors */
-            --text-primary: #ffffff;
-            --text-secondary: #a0a3b3;
-            --text-muted: #6b7280;
-            --border-color: #2d313d;
+            /* Gradients 2026 */
+            --gradient-holo: linear-gradient(135deg, #ff00ff, #00ffff, #00ffaa);
+            --gradient-cyber: linear-gradient(135deg, #9d00ff, #ff00ff, #00ffff);
+            --gradient-neon: linear-gradient(135deg, #ff6b00, #ffff00, #00ffaa);
+            --gradient-space: linear-gradient(135deg, #050510, #11132a, #24284d);
             
-            /* Status Colors */
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
+            /* Text Colors */
+            --text-glowing: #ffffff;
+            --text-primary: #e0e0ff;
+            --text-secondary: #a0a3cc;
+            --text-muted: #6b6d99;
             
-            /* Typography */
-            --font-heading: 'Montserrat', sans-serif;
-            --font-body: 'Poppins', sans-serif;
+            /* Special Effects */
+            --glow-pink: 0 0 30px rgba(255, 0, 255, 0.6);
+            --glow-cyan: 0 0 30px rgba(0, 255, 255, 0.6);
+            --glow-green: 0 0 30px rgba(0, 255, 170, 0.6);
+            --glow-purple: 0 0 30px rgba(157, 0, 255, 0.6);
             
-            /* Spacing */
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 20px;
+            /* Typography 2026 */
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            
+            /* Spacing System */
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
             --radius-full: 50%;
             
-            /* Shadows */
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
-            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
-            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.3);
-            --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.4);
-            --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.4);
+            /* Shadows Futuristic */
+            --shadow-holo: 0 10px 40px rgba(255, 0, 255, 0.3);
+            --shadow-cyber: 0 10px 40px rgba(0, 255, 255, 0.3);
+            --shadow-space: 0 20px 60px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 50px rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -59,13 +68,14 @@
 
         body {
             font-family: var(--font-body);
-            background: var(--bg-primary);
+            background: var(--bg-deep);
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Elegant Background Pattern */
+        /* Animated Cyber Background */
         body::before {
             content: '';
             position: fixed;
@@ -74,113 +84,173 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(255, 0, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 40% 40%, rgba(0, 255, 170, 0.1) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(5, 5, 16, 0.9), rgba(17, 19, 42, 0.9));
+            z-index: -2;
+            animation: bgPulse 10s infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Grid Lines Animation */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(to right, rgba(255, 0, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
             z-index: -1;
+            opacity: 0.3;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-50px, -50px); }
         }
 
         /* Main Container */
         .app-container {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
-            padding: 24px;
+            padding: 20px;
             display: grid;
-            grid-template-columns: 1fr 400px;
+            grid-template-columns: 1fr 420px;
             gap: 24px;
             min-height: 100vh;
         }
 
-        /* Header - Premium Design */
+        /* Header - Futuristic */
         .header {
             grid-column: 1 / -1;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 16px 0;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 32px;
+            margin-bottom: 24px;
+            position: relative;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
+            position: relative;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--accent-gradient);
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-holo);
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            box-shadow: var(--shadow-glow);
+            font-size: 24px;
+            animation: logoGlow 3s infinite alternate;
+            box-shadow: var(--shadow-holo);
+        }
+
+        @keyframes logoGlow {
+            0% { box-shadow: var(--glow-pink); }
+            33% { box-shadow: var(--glow-cyan); }
+            66% { box-shadow: var(--glow-green); }
+            100% { box-shadow: var(--glow-purple); }
         }
 
         .logo-text {
             font-family: var(--font-heading);
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
-            background: var(--accent-gradient);
+            background: var(--gradient-holo);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
         }
 
-        .tagline {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-top: 2px;
-            font-weight: 400;
+        .version-badge {
+            background: var(--gradient-cyber);
+            color: white;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 4px;
         }
 
-        .camera-status {
+        /* Camera Status Panel */
+        .status-panel {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .multi-shot-indicator {
             display: flex;
             align-items: center;
             gap: 12px;
-            background: var(--bg-card);
-            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 24px;
             border-radius: var(--radius-full);
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .status-indicator {
-            width: 10px;
-            height: 10px;
+        .shot-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .shot-dot {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: var(--success);
-            position: relative;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
         }
 
-        .status-indicator::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--success);
-            opacity: 0.3;
-            animation: pulse 2s infinite;
+        .shot-dot.active {
+            background: var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink);
+            animation: dotPulse 1s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
-            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.1; }
+        .shot-dot.captured {
+            background: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
         }
 
-        /* Main Camera Section - Elegant Design */
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .shot-counter {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-glowing);
+        }
+
+        /* Main Camera Area */
         .camera-section {
-            background: var(--bg-secondary);
+            background: var(--bg-space);
             border-radius: var(--radius-xl);
             overflow: hidden;
             position: relative;
-            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-space);
         }
 
         .camera-section::before {
@@ -189,9 +259,10 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: var(--accent-gradient);
-            z-index: 2;
+            height: 100%;
+            background: var(--gradient-holo);
+            opacity: 0.05;
+            z-index: 1;
         }
 
         .camera-container {
@@ -200,6 +271,7 @@
             height: 600px;
             overflow: hidden;
             background: #000;
+            z-index: 2;
         }
 
         #videoElement {
@@ -210,6 +282,22 @@
             display: block;
         }
 
+        /* Live Filter Preview Canvas */
+        .live-filter-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            display: none;
+        }
+
+        .filter-active .live-filter-canvas {
+            display: block;
+        }
+
+        /* Camera Overlay Effects */
         .camera-overlay {
             position: absolute;
             top: 0;
@@ -217,80 +305,144 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 4;
         }
 
-        /* Modern Grid Overlay */
-        .grid-overlay {
+        /* Grid Lines 2026 */
+        .holo-grid {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            padding: 30px;
-            gap: 1px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 0, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
         }
 
-        .grid-cell {
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 2px;
-        }
-
-        /* Focus Ring */
+        /* Focus Ring Animation */
         .focus-ring {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            border: 2px solid var(--accent-primary);
+            width: 140px;
+            height: 140px;
+            border: 2px solid var(--neon-cyan);
             border-radius: var(--radius-full);
-            opacity: 0.5;
-            animation: ringPulse 3s infinite;
+            animation: ringSpin 4s linear infinite;
+            box-shadow: var(--glow-cyan);
         }
 
-        @keyframes ringPulse {
-            0%, 100% { 
-                transform: translate(-50%, -50%) scale(1); 
-                opacity: 0.5; 
-                box-shadow: 0 0 20px var(--accent-primary);
-            }
-            50% { 
-                transform: translate(-50%, -50%) scale(1.1); 
-                opacity: 0.8; 
-                box-shadow: 0 0 40px var(--accent-primary);
-            }
+        @keyframes ringSpin {
+            0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+            50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.1); }
+            100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
         }
 
-        /* Camera Controls */
-        .camera-controls {
+        /* Multi-Shot Controls */
+        .multi-shot-controls {
             padding: 24px;
-            background: var(--bg-card);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .shot-mode-selector {
+            display: flex;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px;
+            border-radius: var(--radius-lg);
+        }
+
+        .mode-btn {
+            padding: 12px 24px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .mode-btn:hover::before {
+            left: 100%;
+        }
+
+        .mode-btn:hover {
+            color: var(--text-glowing);
+            border-color: var(--neon-pink);
+        }
+
+        .mode-btn.active {
+            background: var(--gradient-holo);
+            color: white;
+            border-color: transparent;
+            box-shadow: var(--shadow-holo);
+        }
+
+        .mode-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--neon-yellow);
+            color: black;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: var(--radius-full);
+            font-weight: 800;
+        }
+
+        /* Capture Button - Futuristic */
+        .capture-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
 
         .capture-btn {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: var(--radius-full);
-            background: var(--accent-gradient);
+            background: var(--gradient-holo);
             border: none;
             cursor: pointer;
             position: relative;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-holo);
+            animation: buttonGlow 3s infinite alternate;
+        }
+
+        @keyframes buttonGlow {
+            0% { box-shadow: 0 0 30px rgba(255, 0, 255, 0.6); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 255, 0.6); }
+            100% { box-shadow: 0 0 30px rgba(0, 255, 170, 0.6); }
         }
 
         .capture-btn:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-glow);
+            transform: scale(1.1);
         }
 
         .capture-btn:active {
@@ -303,93 +455,157 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: white;
             border-radius: var(--radius-full);
-            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
-        /* Ratio Selector */
-        .ratio-selector {
-            display: flex;
-            gap: 12px;
-            background: var(--bg-surface);
-            padding: 8px;
-            border-radius: var(--radius-lg);
-        }
-
-        .ratio-btn {
-            padding: 10px 20px;
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            color: var(--text-secondary);
+        .capture-count {
             font-family: var(--font-heading);
-            font-weight: 500;
-            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* Gallery Preview - 2026 Style */
+        .gallery-preview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .gallery-item {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+            border: 2px solid transparent;
             transition: all 0.3s ease;
         }
 
-        .ratio-btn:hover {
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item.active {
+            border-color: var(--neon-pink);
+            box-shadow: var(--glow-pink);
+            transform: translateY(-5px);
+        }
+
+        .gallery-empty {
             background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 2rem;
         }
 
-        .ratio-btn.active {
-            background: var(--accent-gradient);
-            color: white;
-            border-color: transparent;
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* Sidebar - Premium Design */
+        /* Sidebar - TikTok Style Filters */
         .sidebar {
             display: flex;
             flex-direction: column;
             gap: 24px;
         }
 
-        .controls-panel {
-            background: var(--bg-secondary);
+        .filter-panel {
+            background: var(--bg-holo);
             border-radius: var(--radius-xl);
             padding: 24px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-space);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .panel-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
         }
 
         .panel-title {
             font-family: var(--font-heading);
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-glowing);
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .panel-title i {
-            color: var(--accent-primary);
+            font-size: 1.6rem;
         }
 
-        .effects-count {
-            background: var(--bg-surface);
-            color: var(--text-secondary);
-            padding: 4px 12px;
+        .filter-count {
+            background: var(--gradient-cyber);
+            color: white;
+            padding: 6px 14px;
             border-radius: var(--radius-full);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
-        /* Effects Grid - Elegant Design */
+        /* Filter Categories TikTok Style */
+        .filter-categories {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .filter-categories::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .filter-categories::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .filter-categories::-webkit-scrollbar-thumb {
+            background: var(--neon-pink);
+            border-radius: 2px;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-full);
+            color: var(--text-secondary);
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .category-btn.active {
+            background: var(--gradient-holo);
+            color: white;
+            border-color: transparent;
+            box-shadow: var(--shadow-holo);
+        }
+
+        /* TikTok Effects Grid */
         .effects-scroll {
-            max-height: 300px;
+            max-height: 380px;
             overflow-y: auto;
             padding-right: 8px;
         }
@@ -399,274 +615,323 @@
         }
 
         .effects-scroll::-webkit-scrollbar-track {
-            background: var(--bg-surface);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 3px;
         }
 
         .effects-scroll::-webkit-scrollbar-thumb {
-            background: var(--accent-primary);
+            background: var(--neon-pink);
             border-radius: 3px;
         }
 
         .effects-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 14px;
             margin-bottom: 20px;
         }
 
-        .effect-card {
+        .filter-card {
             background: var(--bg-card);
-            border: 1px solid var(--border-color);
+            border: 2px solid transparent;
             border-radius: var(--radius-lg);
-            padding: 16px;
+            padding: 18px;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .effect-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-primary);
-            box-shadow: var(--shadow-md);
+        .filter-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-pink);
+            box-shadow: var(--shadow-holo);
         }
 
-        .effect-card.active {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
-            border-color: var(--accent-primary);
-            box-shadow: var(--shadow-glow);
+        .filter-card.active {
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.15), rgba(0, 255, 255, 0.15));
+            border-color: var(--neon-pink);
+            box-shadow: var(--glow-pink);
         }
 
-        .effect-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--bg-surface);
+        .filter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .filter-card:hover::before {
+            left: 100%;
+        }
+
+        .filter-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-space);
             border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 24px;
             margin-bottom: 12px;
-            color: var(--accent-primary);
+            position: relative;
+            overflow: hidden;
         }
 
-        .effect-card.active .effect-icon {
-            background: var(--accent-gradient);
-            color: white;
+        .filter-card.active .filter-icon {
+            background: var(--gradient-holo);
         }
 
-        .effect-name {
+        .filter-name {
             font-family: var(--font-heading);
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: var(--text-primary);
+            color: var(--text-glowing);
+            margin-bottom: 6px;
+        }
+
+        .filter-trending {
+            font-size: 0.75rem;
+            color: var(--neon-yellow);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 4px;
         }
 
-        .effect-desc {
-            font-size: 0.8rem;
+        .filter-desc {
+            font-size: 0.85rem;
             color: var(--text-secondary);
             line-height: 1.4;
         }
 
-        .effect-badge {
+        /* Live Preview Badge */
+        .live-badge {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 8px;
-            height: 8px;
-            background: var(--accent-primary);
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.3s;
+            top: 10px;
+            right: 10px;
+            background: var(--neon-green);
+            color: black;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: var(--radius-full);
+            font-weight: 800;
+            animation: badgeFlash 1s infinite;
         }
 
-        .effect-card.active .effect-badge {
-            opacity: 1;
-            animation: badgePulse 2s infinite;
+        @keyframes badgeFlash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
-        @keyframes badgePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.5); }
-        }
-
-        /* Slider - Modern Design */
-        .slider-container {
-            margin-top: 20px;
+        /* Intensity Slider - Futuristic */
+        .intensity-slider {
+            margin-top: 24px;
             padding-top: 20px;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .slider-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .slider-label {
             font-family: var(--font-heading);
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: var(--text-primary);
+            color: var(--text-glowing);
         }
 
         .slider-value {
-            font-size: 0.9rem;
-            color: var(--accent-primary);
-            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--neon-cyan);
+            font-weight: 700;
+            text-shadow: 0 0 10px var(--neon-cyan);
         }
 
-        .custom-slider {
-            width: 100%;
-            height: 6px;
-            background: var(--bg-surface);
-            border-radius: 3px;
-            outline: none;
-            -webkit-appearance: none;
+        .slider-container {
+            position: relative;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
         }
 
-        .custom-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            background: var(--accent-gradient);
+        .slider-track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50%;
+            background: var(--gradient-holo);
+            border-radius: 4px;
+        }
+
+        .slider-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background: white;
             border-radius: 50%;
             cursor: pointer;
-            border: 3px solid var(--bg-secondary);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 0 20px var(--neon-pink);
         }
 
-        .slider-ticks {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 8px;
-            padding: 0 10px;
-        }
-
-        .slider-tick {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        /* Preview Panel - Sleek Design */
-        .preview-panel {
-            background: var(--bg-secondary);
+        /* Multi-Shot Preview Panel */
+        .multi-shot-panel {
+            background: var(--bg-holo);
             border-radius: var(--radius-xl);
             padding: 24px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-space);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: none;
         }
 
-        .preview-panel.active {
+        .multi-shot-panel.active {
             display: block;
-            animation: slideIn 0.3s ease;
+            animation: panelSlide 0.5s ease;
         }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes panelSlide {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .preview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+        .multi-shot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
-        .preview-title {
-            font-family: var(--font-heading);
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .preview-container {
-            width: 100%;
-            height: 250px;
-            background: #000;
+        .multi-shot-item {
+            aspect-ratio: 1;
             border-radius: var(--radius-lg);
             overflow: hidden;
-            margin-bottom: 20px;
             position: relative;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
-        #previewCanvas {
+        .multi-shot-item canvas {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .preview-actions {
+        .shot-number {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--neon-pink);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: var(--glow-pink);
+        }
+
+        .panel-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 16px;
         }
 
         .action-btn {
-            padding: 14px 20px;
+            padding: 16px;
             border-radius: var(--radius-lg);
             border: none;
             font-family: var(--font-heading);
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 700;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .action-btn.download {
-            background: var(--accent-gradient);
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn.download-all {
+            background: var(--gradient-holo);
             color: white;
         }
 
-        .action-btn.retake {
-            background: var(--bg-surface);
+        .action-btn.retake-all {
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
-            border: 1px solid var(--border-color);
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-holo);
         }
 
-        .action-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Footer - Minimalist */
+        /* Footer 2026 */
         .footer {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 32px 0 0;
-            margin-top: 32px;
-            border-top: 1px solid var(--border-color);
+            padding: 30px 0 0;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        .footer-brand {
-            color: var(--text-secondary);
-            font-weight: 600;
-            letter-spacing: 1px;
+        .tech-tags {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            border: 1px solid rgba(0, 255, 255, 0.2);
         }
 
         /* Flash Effect */
-        .flash-overlay {
+        .flash-effect {
             position: fixed;
             top: 0;
             left: 0;
@@ -679,7 +944,7 @@
             display: none;
         }
 
-        .flash-overlay.active {
+        .flash-effect.active {
             display: block;
             animation: flash 0.4s ease;
         }
@@ -691,7 +956,7 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 1200px) {
+        @media (max-width: 1400px) {
             .app-container {
                 grid-template-columns: 1fr;
             }
@@ -708,7 +973,6 @@
         @media (max-width: 768px) {
             .app-container {
                 padding: 16px;
-                gap: 16px;
             }
             
             .camera-container {
@@ -717,12 +981,16 @@
             
             .header {
                 flex-direction: column;
-                gap: 16px;
+                gap: 20px;
                 align-items: flex-start;
             }
             
             .effects-grid {
                 grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .multi-shot-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -735,72 +1003,102 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .preview-actions {
+            .panel-actions {
                 grid-template-columns: 1fr;
             }
             
-            .ratio-selector {
+            .filter-categories {
                 flex-wrap: wrap;
-                justify-content: center;
             }
         }
 
-        /* Utility Classes */
-        .hidden {
-            display: none !important;
-        }
-
         /* Loading Animation */
-        .loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-deep);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            justify-content: center;
+            z-index: 9999;
+            gap: 24px;
         }
 
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--bg-surface);
-            border-top-color: var(--accent-primary);
+        .hologram-loader {
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+
+        .hologram-loader::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-holo);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: hologramSpin 2s linear infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        @keyframes hologramSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
         .loading-text {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            animation: textPulse 2s infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
 <body>
     <!-- Flash Effect -->
-    <div class="flash-overlay" id="flashOverlay"></div>
+    <div class="flash-effect" id="flashEffect"></div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="hologram-loader"></div>
+        <div class="loading-text">INITIALIZING NEXUSBOOTH 2026</div>
+    </div>
     
     <div class="app-container">
         <!-- Header -->
         <header class="header">
             <div class="logo-container">
                 <div class="logo-icon">
-                    <i>📸</i>
+                    <i>✨</i>
                 </div>
                 <div>
-                    <div class="logo-text">FinessePhoto</div>
-                    <div class="tagline">AI-Powered Photobooth Experience</div>
+                    <div class="logo-text">NEXUSBOOTH</div>
+                    <div class="version-badge">2026 EDITION</div>
                 </div>
             </div>
             
-            <div class="camera-status">
-                <div class="status-indicator"></div>
-                <span id="cameraStatus">Camera Ready • HD 1080p</span>
+            <div class="status-panel">
+                <div class="multi-shot-indicator">
+                    <div class="shot-dots" id="shotDots">
+                        <div class="shot-dot" data-shot="1"></div>
+                        <div class="shot-dot" data-shot="2"></div>
+                        <div class="shot-dot" data-shot="3"></div>
+                        <div class="shot-dot" data-shot="4"></div>
+                    </div>
+                    <div class="shot-counter" id="shotCounter">SHOT 1/4</div>
+                </div>
             </div>
         </header>
         
@@ -808,43 +1106,62 @@
         <main class="camera-section">
             <div class="camera-container">
                 <video id="videoElement" autoplay playsinline></video>
+                <canvas class="live-filter-canvas" id="liveFilterCanvas"></canvas>
                 
                 <div class="camera-overlay">
-                    <div class="grid-overlay">
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                        <div class="grid-cell"></div>
-                    </div>
+                    <div class="holo-grid"></div>
                     <div class="focus-ring"></div>
                 </div>
             </div>
             
-            <div class="camera-controls">
-                <button class="capture-btn" id="captureBtn" aria-label="Take Photo"></button>
+            <div class="multi-shot-controls">
+                <div class="shot-mode-selector">
+                    <button class="mode-btn active" data-mode="1">
+                        SINGLE
+                        <span class="mode-badge">1</span>
+                    </button>
+                    <button class="mode-btn" data-mode="2">
+                        DUO
+                        <span class="mode-badge">2</span>
+                    </button>
+                    <button class="mode-btn" data-mode="3">
+                        TRIO
+                        <span class="mode-badge">3</span>
+                    </button>
+                    <button class="mode-btn" data-mode="4">
+                        QUAD
+                        <span class="mode-badge">4</span>
+                    </button>
+                </div>
                 
-                <div class="ratio-selector">
-                    <button class="ratio-btn active" data-ratio="1:1">1:1 Square</button>
-                    <button class="ratio-btn" data-ratio="4:5">4:5 Portrait</button>
-                    <button class="ratio-btn" data-ratio="16:9">16:9 Landscape</button>
+                <div class="capture-container">
+                    <div class="capture-count" id="captureCount">01</div>
+                    <button class="capture-btn" id="captureBtn"></button>
+                    <div class="capture-count" id="maxShots">/04</div>
+                </div>
+                
+                <div class="gallery-preview" id="galleryPreview">
+                    <div class="gallery-item gallery-empty">+</div>
+                    <div class="gallery-item gallery-empty">+</div>
+                    <div class="gallery-item gallery-empty">+</div>
+                    <div class="gallery-item gallery-empty">+</div>
                 </div>
             </div>
         </main>
         
         <!-- Sidebar -->
         <aside class="sidebar">
-            <!-- Effects Panel -->
-            <div class="controls-panel">
+            <!-- Filters Panel -->
+            <div class="filter-panel">
                 <div class="panel-header">
                     <h3 class="panel-title">
-                        <i>✨</i> AI Filters
+                        <i>🎭</i> TIKTOK FILTERS 2026
                     </h3>
-                    <span class="effects-count" id="effectsCount">12 Filters</span>
+                    <span class="filter-count" id="filterCount">24 TRENDING</span>
+                </div>
+                
+                <div class="filter-categories" id="filterCategories">
+                    <!-- Categories will be loaded here -->
                 </div>
                 
                 <div class="effects-scroll">
@@ -853,37 +1170,37 @@
                     </div>
                 </div>
                 
-                <div class="slider-container">
+                <div class="intensity-slider">
                     <div class="slider-header">
-                        <span class="slider-label">Filter Intensity</span>
-                        <span class="slider-value" id="intensityValue">50%</span>
+                        <span class="slider-label">FILTER POWER</span>
+                        <span class="slider-value" id="intensityValue">100%</span>
                     </div>
-                    <input type="range" min="0" max="100" value="50" class="custom-slider" id="intensitySlider">
-                    <div class="slider-ticks">
-                        <span class="slider-tick">Soft</span>
-                        <span class="slider-tick">Medium</span>
-                        <span class="slider-tick">Strong</span>
+                    <div class="slider-container" id="sliderContainer">
+                        <div class="slider-track" id="sliderTrack"></div>
+                        <div class="slider-handle" id="sliderHandle"></div>
                     </div>
                 </div>
             </div>
             
-            <!-- Preview Panel -->
-            <div class="preview-panel" id="previewPanel">
-                <div class="preview-header">
-                    <h3 class="preview-title">Photo Preview</h3>
-                    <span class="effects-count">Ready</span>
+            <!-- Multi-Shot Preview Panel -->
+            <div class="multi-shot-panel" id="multiShotPanel">
+                <div class="panel-header">
+                    <h3 class="panel-title">
+                        <i>🎞️</i> 4-SHOT COLLAGE
+                    </h3>
+                    <span class="filter-count" id="collageCount">4 SHOTS</span>
                 </div>
                 
-                <div class="preview-container">
-                    <canvas id="previewCanvas"></canvas>
+                <div class="multi-shot-grid" id="multiShotGrid">
+                    <!-- Multi-shot items will be added here -->
                 </div>
                 
-                <div class="preview-actions">
-                    <button class="action-btn download" id="downloadBtn">
-                        <i>⬇️</i> Download
+                <div class="panel-actions">
+                    <button class="action-btn download-all" id="downloadCollageBtn">
+                        <i>📥</i> DOWNLOAD ALL
                     </button>
-                    <button class="action-btn retake" id="retakeBtn">
-                        <i>↻</i> Retake
+                    <button class="action-btn retake-all" id="retakeAllBtn">
+                        <i>🔄</i> RETAKES
                     </button>
                 </div>
             </div>
@@ -891,238 +1208,599 @@
         
         <!-- Footer -->
         <footer class="footer">
-            <p>© 2024 <span class="footer-brand">FinessePhoto</span> — Premium AI Photobooth System</p>
-            <p style="margin-top: 8px;">Optimized for portrait photography • Face detection enabled</p>
+            <p>© 2026 <span style="color: var(--neon-pink); font-weight: 700;">NEXUSBOOTH</span> — NEXT-GEN PHOTOBOOTH EXPERIENCE</p>
+            <div class="tech-tags">
+                <span class="tech-tag">AI-POWERED</span>
+                <span class="tech-tag">MULTI-SHOT</span>
+                <span class="tech-tag">REAL-TIME FILTERS</span>
+                <span class="tech-tag">4K READY</span>
+                <span class="tech-tag">METAVERSE COMPATIBLE</span>
+            </div>
         </footer>
     </div>
 
     <script>
         // DOM Elements
         const videoElement = document.getElementById('videoElement');
+        const liveFilterCanvas = document.getElementById('liveFilterCanvas');
+        const liveFilterCtx = liveFilterCanvas.getContext('2d');
         const captureBtn = document.getElementById('captureBtn');
-        const flashOverlay = document.getElementById('flashOverlay');
-        const previewPanel = document.getElementById('previewPanel');
-        const previewCanvas = document.getElementById('previewCanvas');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const retakeBtn = document.getElementById('retakeBtn');
-        const intensitySlider = document.getElementById('intensitySlider');
-        const intensityValue = document.getElementById('intensityValue');
-        const cameraStatus = document.getElementById('cameraStatus');
+        const flashEffect = document.getElementById('flashEffect');
+        const loadingOverlay = document.getElementById('loadingOverlay');
         const effectsGrid = document.getElementById('effectsGrid');
-        const effectsCount = document.getElementById('effectsCount');
-        const ratioButtons = document.querySelectorAll('.ratio-btn');
+        const filterCategories = document.getElementById('filterCategories');
+        const intensityValue = document.getElementById('intensityValue');
+        const sliderContainer = document.getElementById('sliderContainer');
+        const sliderTrack = document.getElementById('sliderTrack');
+        const sliderHandle = document.getElementById('sliderHandle');
+        const shotDots = document.getElementById('shotDots');
+        const shotCounter = document.getElementById('shotCounter');
+        const captureCount = document.getElementById('captureCount');
+        const maxShots = document.getElementById('maxShots');
+        const galleryPreview = document.getElementById('galleryPreview');
+        const multiShotPanel = document.getElementById('multiShotPanel');
+        const multiShotGrid = document.getElementById('multiShotGrid');
+        const downloadCollageBtn = document.getElementById('downloadCollageBtn');
+        const retakeAllBtn = document.getElementById('retakeAllBtn');
+        const filterCount = document.getElementById('filterCount');
+        const collageCount = document.getElementById('collageCount');
         
-        // State
+        // State Variables
         let currentStream = null;
-        let activeFilters = new Set();
-        let currentAspectRatio = '1:1';
-        let capturedImage = null;
-        let previewContext = null;
-        let isPreviewActive = false;
+        let activeFilter = null;
+        let filterIntensity = 100;
+        let shotsTaken = 0;
+        let maxShotsCount = 4;
+        let currentMode = 1;
+        let shotsArray = new Array(maxShotsCount).fill(null);
+        let isLiveFilterActive = false;
+        let animationFrameId = null;
         
-        // Premium Filters Collection
-        const filters = [
+        // TikTok 2026 Filters Database
+        const tiktokFilters = [
+            // VIRAL EFFECTS
             {
-                id: 'portrait',
-                name: 'Portrait Pro',
-                description: 'Professional skin smoothing',
-                icon: '👤',
+                id: 'alien',
+                name: 'Alien Vision',
+                description: 'Glitchy green overlay',
+                icon: '👽',
+                category: 'viral',
+                trending: true,
+                apply: applyAlienEffect
+            },
+            {
+                id: 'rainbow',
+                name: 'Rainbow Vibe',
+                description: 'Colorful spectrum waves',
+                icon: '🌈',
+                category: 'viral',
+                trending: true,
+                apply: applyRainbowEffect
+            },
+            {
+                id: 'glitch',
+                name: 'Cyber Glitch',
+                description: 'Digital distortion effect',
+                icon: '📱',
+                category: 'viral',
+                trending: true,
+                apply: applyGlitchEffect
+            },
+            {
+                id: 'sparkle',
+                name: 'Sparkle Queen',
+                description: 'Magical sparkles overlay',
+                icon: '✨',
+                category: 'viral',
+                apply: applySparkleEffect
+            },
+            
+            // BEAUTY FILTERS
+            {
+                id: 'glass',
+                name: 'Glass Skin',
+                description: 'Korean glass skin effect',
+                icon: '💎',
                 category: 'beauty',
-                apply: applyPortraitEffect
+                trending: true,
+                apply: applyGlassSkinEffect
             },
             {
-                id: 'glamour',
-                name: 'Glamour Glow',
-                description: 'Soft glow & highlight',
-                icon: '🌟',
+                id: 'doll',
+                name: 'Anime Doll',
+                description: 'Big eyes & smooth skin',
+                icon: '🎀',
                 category: 'beauty',
-                apply: applyGlamourEffect
+                apply: applyDollEffect
             },
             {
-                id: 'dramatic',
-                name: 'Dramatic Eyes',
-                description: 'Enhance eye details',
-                icon: '👁️',
+                id: 'blush',
+                name: 'Blush Filter',
+                description: 'Cute pink blush overlay',
+                icon: '🍑',
                 category: 'beauty',
-                apply: applyDramaticEyesEffect
+                apply: applyBlushEffect
             },
             {
-                id: 'vintage',
-                name: 'Vintage Film',
-                description: 'Classic film look',
-                icon: '🎞️',
-                category: 'style',
-                apply: applyVintageEffect
-            },
-            {
-                id: 'monochrome',
-                name: 'Monochrome',
-                description: 'Black & white elegance',
-                icon: '⚫',
-                category: 'style',
-                apply: applyMonochromeEffect
-            },
-            {
-                id: 'cinematic',
-                name: 'Cinematic',
-                description: 'Movie-grade colors',
-                icon: '🎬',
-                category: 'style',
-                apply: applyCinematicEffect
-            },
-            {
-                id: 'golden',
+                id: 'sunset',
                 name: 'Golden Hour',
-                description: 'Warm sunset tones',
+                description: 'Warm sunset glow',
                 icon: '🌅',
-                category: 'color',
+                category: 'beauty',
                 apply: applyGoldenHourEffect
             },
+            
+            // FUNNY EFFECTS
             {
-                id: 'cool',
-                name: 'Cool Tone',
-                description: 'Modern blue tones',
-                icon: '❄️',
-                category: 'color',
-                apply: applyCoolToneEffect
+                id: 'anime',
+                name: 'Anime Filter',
+                description: 'Turn into anime character',
+                icon: '👁️',
+                category: 'funny',
+                trending: true,
+                apply: applyAnimeEffect
             },
             {
-                id: 'pastel',
-                name: 'Pastel Dream',
-                description: 'Soft pastel colors',
-                icon: '🎨',
-                category: 'color',
-                apply: applyPastelEffect
+                id: 'cat',
+                name: 'Cat Face',
+                description: 'Cute cat ears & nose',
+                icon: '🐱',
+                category: 'funny',
+                trending: true,
+                apply: applyCatEffect
             },
             {
-                id: 'studio',
-                name: 'Studio Light',
-                description: 'Professional lighting',
-                icon: '💡',
-                category: 'lighting',
-                apply: applyStudioLightEffect
+                id: 'clown',
+                name: 'Funny Clown',
+                description: 'Red nose & rainbow hair',
+                icon: '🤡',
+                category: 'funny',
+                trending: true,
+                apply: applyClownEffect
             },
             {
-                id: 'moody',
-                name: 'Moody Shadows',
-                description: 'Artistic contrast',
-                icon: '🎭',
-                category: 'lighting',
-                apply: applyMoodyEffect
+                id: 'swap',
+                name: 'Face Swap',
+                description: 'Swap faces with others',
+                icon: '🔄',
+                category: 'funny',
+                apply: applyFaceSwapEffect
+            },
+            
+            // AR EFFECTS
+            {
+                id: 'crown',
+                name: 'Crown AR',
+                description: 'Floating golden crown',
+                icon: '👑',
+                category: 'ar',
+                apply: applyCrownEffect
             },
             {
                 id: 'halo',
-                name: 'Halo Light',
-                description: 'Angelical backlight',
+                name: 'Angel Halo',
+                description: 'Floating angel halo',
                 icon: '😇',
-                category: 'special',
+                category: 'ar',
                 apply: applyHaloEffect
+            },
+            {
+                id: 'glasses',
+                name: 'AR Glasses',
+                description: 'Virtual reality glasses',
+                icon: '👓',
+                category: 'ar',
+                trending: true,
+                apply: applyARGlassesEffect
+            },
+            {
+                id: 'hearts',
+                name: 'Floating Hearts',
+                description: 'Floating heart particles',
+                icon: '💖',
+                category: 'ar',
+                apply: applyHeartsEffect
+            },
+            
+            // SPECIAL EFFECTS
+            {
+                id: 'neon',
+                name: 'Neon Outline',
+                description: 'Glowing neon edges',
+                icon: '🔮',
+                category: 'special',
+                trending: true,
+                apply: applyNeonEffect
+            },
+            {
+                id: 'vaporwave',
+                name: 'Vaporwave',
+                description: 'Retro aesthetic',
+                icon: '🌴',
+                category: 'special',
+                trending: true,
+                apply: applyVaporwaveEffect
+            },
+            {
+                id: 'disco',
+                name: 'Disco Ball',
+                description: 'Disco lights effect',
+                icon: '🪩',
+                category: 'special',
+                apply: applyDiscoEffect
+            },
+            {
+                id: 'synth',
+                name: 'Synthwave',
+                description: '80s retro synth',
+                icon: '🎛️',
+                category: 'special',
+                trending: true,
+                apply: applySynthwaveEffect
+            },
+            
+            // FACE MODIFICATION
+            {
+                id: 'bigeyes',
+                name: 'Big Eyes',
+                description: 'Make eyes bigger',
+                icon: '👀',
+                category: 'face',
+                apply: applyBigEyesEffect
+            },
+            {
+                id: 'slim',
+                name: 'Face Slim',
+                description: 'Slim face filter',
+                icon: '⚡',
+                category: 'face',
+                apply: applySlimFaceEffect
+            },
+            {
+                id: 'beard',
+                name: 'Virtual Beard',
+                description: 'Add beard & mustache',
+                icon: '🧔',
+                category: 'face',
+                apply: applyBeardEffect
+            },
+            {
+                id: 'makeup',
+                name: 'AR Makeup',
+                description: 'Virtual makeup',
+                icon: '💄',
+                category: 'face',
+                trending: true,
+                apply: applyMakeupEffect
             }
         ];
 
-        // Initialize Camera
-        async function initCamera() {
+        // Categories
+        const categories = [
+            { id: 'all', name: 'All Filters', icon: '🌟' },
+            { id: 'viral', name: 'Viral', icon: '🔥' },
+            { id: 'beauty', name: 'Beauty', icon: '💅' },
+            { id: 'funny', name: 'Funny', icon: '😂' },
+            { id: 'ar', name: 'AR', icon: '👁️' },
+            { id: 'special', name: 'Special', icon: '🎯' },
+            { id: 'face', name: 'Face', icon: '👤' }
+        ];
+
+        // Initialize App
+        async function initApp() {
+            showLoading('Initializing AI Camera...');
+            
             try {
-                cameraStatus.textContent = 'Initializing camera...';
+                // Initialize camera
+                await initCamera();
                 
-                const constraints = {
-                    video: {
-                        width: { ideal: 1920 },
-                        height: { ideal: 1080 },
-                        facingMode: 'user',
-                        frameRate: { ideal: 30 }
-                    },
-                    audio: false
-                };
+                // Setup UI
+                createCategoryButtons();
+                createFilterCards();
+                initSlider();
+                initModeButtons();
+                updateShotDisplay();
                 
-                currentStream = await navigator.mediaDevices.getUserMedia(constraints);
-                videoElement.srcObject = currentStream;
+                // Start live filter preview
+                startLivePreview();
                 
-                cameraStatus.textContent = 'Camera Ready • HD 1080p';
-                cameraStatus.style.color = 'var(--success)';
-                
-                // Setup canvas
-                previewCanvas.width = 800;
-                previewCanvas.height = 600;
-                previewContext = previewCanvas.getContext('2d');
+                // Hide loading
+                setTimeout(() => {
+                    hideLoading();
+                }, 1000);
                 
             } catch (error) {
-                console.error('Camera error:', error);
-                cameraStatus.textContent = 'Camera Unavailable';
-                cameraStatus.style.color = 'var(--error)';
-                
-                showError('Please allow camera access to use FinessePhoto');
+                showError('Failed to initialize camera');
+                console.error('Initialization error:', error);
             }
+        }
+
+        // Initialize Camera
+        async function initCamera() {
+            const constraints = {
+                video: {
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 },
+                    facingMode: 'user',
+                    frameRate: { ideal: 60 }
+                },
+                audio: false
+            };
+            
+            currentStream = await navigator.mediaDevices.getUserMedia(constraints);
+            videoElement.srcObject = currentStream;
+            
+            // Set canvas size to match video
+            videoElement.onloadedmetadata = () => {
+                liveFilterCanvas.width = videoElement.videoWidth;
+                liveFilterCanvas.height = videoElement.videoHeight;
+            };
+        }
+
+        // Start Live Preview
+        function startLivePreview() {
+            function renderLivePreview() {
+                if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
+                    // Update canvas size if needed
+                    if (liveFilterCanvas.width !== videoElement.videoWidth ||
+                        liveFilterCanvas.height !== videoElement.videoHeight) {
+                        liveFilterCanvas.width = videoElement.videoWidth;
+                        liveFilterCanvas.height = videoElement.videoHeight;
+                    }
+                    
+                    // Clear canvas
+                    liveFilterCtx.clearRect(0, 0, liveFilterCanvas.width, liveFilterCanvas.height);
+                    
+                    // Draw video frame (mirrored)
+                    liveFilterCtx.save();
+                    liveFilterCtx.translate(liveFilterCanvas.width, 0);
+                    liveFilterCtx.scale(-1, 1);
+                    liveFilterCtx.drawImage(videoElement, 0, 0, liveFilterCanvas.width, liveFilterCanvas.height);
+                    liveFilterCtx.restore();
+                    
+                    // Apply active filter
+                    if (activeFilter && isLiveFilterActive) {
+                        const filter = tiktokFilters.find(f => f.id === activeFilter);
+                        if (filter && filter.apply) {
+                            filter.apply(liveFilterCtx, liveFilterCanvas.width, liveFilterCanvas.height, filterIntensity / 100);
+                        }
+                    }
+                }
+                
+                animationFrameId = requestAnimationFrame(renderLivePreview);
+            }
+            
+            renderLivePreview();
+        }
+
+        // Create Category Buttons
+        function createCategoryButtons() {
+            categories.forEach(category => {
+                const button = document.createElement('button');
+                button.className = 'category-btn';
+                button.dataset.category = category.id;
+                button.innerHTML = `${category.icon} ${category.name}`;
+                
+                if (category.id === 'all') {
+                    button.classList.add('active');
+                }
+                
+                button.addEventListener('click', () => {
+                    // Update active category
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Filter effects
+                    filterEffectsByCategory(category.id);
+                });
+                
+                filterCategories.appendChild(button);
+            });
         }
 
         // Create Filter Cards
         function createFilterCards() {
             effectsGrid.innerHTML = '';
             
-            filters.forEach(filter => {
+            tiktokFilters.forEach(filter => {
                 const card = document.createElement('div');
-                card.className = 'effect-card';
+                card.className = 'filter-card';
                 card.dataset.filterId = filter.id;
+                card.dataset.category = filter.category;
                 
                 card.innerHTML = `
-                    <div class="effect-icon">${filter.icon}</div>
-                    <div class="effect-name">${filter.name}</div>
-                    <div class="effect-desc">${filter.description}</div>
-                    <div class="effect-badge"></div>
+                    <div class="filter-icon">${filter.icon}</div>
+                    ${filter.trending ? '<div class="filter-trending">TRENDING</div>' : ''}
+                    <div class="filter-name">${filter.name}</div>
+                    <div class="filter-desc">${filter.description}</div>
+                    ${filter.trending ? '<div class="live-badge">LIVE</div>' : ''}
                 `;
                 
                 card.addEventListener('click', () => {
-                    const isActive = card.classList.contains('active');
+                    // Remove active from all filters
+                    document.querySelectorAll('.filter-card').forEach(card => card.classList.remove('active'));
                     
-                    if (isActive) {
-                        card.classList.remove('active');
-                        activeFilters.delete(filter.id);
+                    // Toggle active filter
+                    if (activeFilter === filter.id) {
+                        activeFilter = null;
+                        isLiveFilterActive = false;
+                        document.querySelector('.camera-section').classList.remove('filter-active');
                     } else {
                         card.classList.add('active');
-                        activeFilters.add(filter.id);
+                        activeFilter = filter.id;
+                        isLiveFilterActive = true;
+                        document.querySelector('.camera-section').classList.add('filter-active');
                     }
                     
                     // Update count
                     updateFilterCount();
-                    
-                    // If preview exists, update it
-                    if (capturedImage) {
-                        renderPreview();
-                    }
                 });
                 
                 effectsGrid.appendChild(card);
             });
+            
+            updateFilterCount();
         }
 
-        // Update filter count
+        // Filter Effects by Category
+        function filterEffectsByCategory(categoryId) {
+            const allCards = document.querySelectorAll('.filter-card');
+            
+            allCards.forEach(card => {
+                if (categoryId === 'all' || card.dataset.category === categoryId) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Update Filter Count
         function updateFilterCount() {
-            const activeCount = activeFilters.size;
-            effectsCount.textContent = `${activeCount} Active • ${filters.length} Total`;
+            const trendingCount = tiktokFilters.filter(f => f.trending).length;
+            filterCount.textContent = `${tiktokFilters.length} FILTERS • ${trendingCount} TRENDING`;
         }
 
-        // Aspect Ratio Controls
-        function initRatioControls() {
-            ratioButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    ratioButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentAspectRatio = btn.dataset.ratio;
+        // Initialize Intensity Slider
+        function initSlider() {
+            let isDragging = false;
+            
+            sliderHandle.addEventListener('mousedown', startDrag);
+            sliderHandle.addEventListener('touchstart', startDrag);
+            
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('mouseup', stopDrag);
+            document.addEventListener('touchend', stopDrag);
+            
+            function startDrag(e) {
+                isDragging = true;
+                e.preventDefault();
+            }
+            
+            function drag(e) {
+                if (!isDragging) return;
+                
+                const containerRect = sliderContainer.getBoundingClientRect();
+                let x;
+                
+                if (e.type.includes('touch')) {
+                    x = e.touches[0].clientX - containerRect.left;
+                } else {
+                    x = e.clientX - containerRect.left;
+                }
+                
+                // Clamp value between 0 and container width
+                x = Math.max(0, Math.min(x, containerRect.width));
+                
+                // Calculate percentage
+                const percentage = (x / containerRect.width) * 100;
+                
+                // Update slider
+                updateSlider(percentage);
+            }
+            
+            function stopDrag() {
+                isDragging = false;
+            }
+            
+            // Click on track to set value
+            sliderContainer.addEventListener('click', (e) => {
+                const containerRect = sliderContainer.getBoundingClientRect();
+                const x = e.clientX - containerRect.left;
+                const percentage = (x / containerRect.width) * 100;
+                updateSlider(percentage);
+            });
+        }
+
+        // Update Slider
+        function updateSlider(percentage) {
+            filterIntensity = Math.round(percentage);
+            intensityValue.textContent = `${filterIntensity}%`;
+            sliderTrack.style.width = `${percentage}%`;
+            sliderHandle.style.left = `${percentage}%`;
+        }
+
+        // Initialize Mode Buttons
+        function initModeButtons() {
+            const modeButtons = document.querySelectorAll('.mode-btn');
+            
+            modeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active from all buttons
+                    modeButtons.forEach(btn => btn.classList.remove('active'));
                     
-                    // Update camera container aspect ratio
-                    const container = document.querySelector('.camera-container');
-                    switch(currentAspectRatio) {
-                        case '1:1':
-                            container.style.aspectRatio = '1/1';
-                            break;
-                        case '4:5':
-                            container.style.aspectRatio = '4/5';
-                            break;
-                        case '16:9':
-                            container.style.aspectRatio = '16/9';
-                            break;
+                    // Set active
+                    button.classList.add('active');
+                    
+                    // Update mode
+                    currentMode = parseInt(button.dataset.mode);
+                    maxShotsCount = currentMode;
+                    maxShots.textContent = `/${currentMode.toString().padStart(2, '0')}`;
+                    
+                    // Reset shots if mode changes
+                    if (shotsTaken > currentMode) {
+                        resetShots();
                     }
+                    
+                    updateShotDisplay();
                 });
+            });
+        }
+
+        // Update Shot Display
+        function updateShotDisplay() {
+            // Update shot counter
+            captureCount.textContent = (shotsTaken + 1).toString().padStart(2, '0');
+            shotCounter.textContent = `SHOT ${shotsTaken + 1}/${maxShotsCount}`;
+            
+            // Update dots
+            const dots = document.querySelectorAll('.shot-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active', 'captured');
+                
+                if (index < maxShotsCount) {
+                    dot.style.display = 'block';
+                    
+                    if (index === shotsTaken) {
+                        dot.classList.add('active');
+                    } else if (index < shotsTaken) {
+                        dot.classList.add('captured');
+                    }
+                } else {
+                    dot.style.display = 'none';
+                }
+            });
+            
+            // Update gallery preview
+            updateGalleryPreview();
+        }
+
+        // Update Gallery Preview
+        function updateGalleryPreview() {
+            const galleryItems = galleryPreview.querySelectorAll('.gallery-item');
+            
+            galleryItems.forEach((item, index) => {
+                if (index < maxShotsCount) {
+                    item.style.display = 'block';
+                    
+                    if (shotsArray[index]) {
+                        item.classList.remove('gallery-empty');
+                        item.innerHTML = `<img src="${shotsArray[index]}" alt="Shot ${index + 1}">`;
+                        
+                        if (index === shotsTaken - 1) {
+                            item.classList.add('active');
+                        } else {
+                            item.classList.remove('active');
+                        }
+                    } else {
+                        item.classList.add('gallery-empty');
+                        item.classList.remove('active');
+                        item.innerHTML = '+';
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
             });
         }
 
@@ -1145,417 +1823,586 @@
             tempCanvas.height = videoElement.videoHeight;
             
             // Draw video frame (mirrored)
+            tempCtx.save();
             tempCtx.translate(tempCanvas.width, 0);
             tempCtx.scale(-1, 1);
             tempCtx.drawImage(videoElement, 0, 0, tempCanvas.width, tempCanvas.height);
-            tempCtx.setTransform(1, 0, 0, 1, 0, 0);
+            tempCtx.restore();
             
-            // Apply active filters
-            const intensity = parseInt(intensitySlider.value) / 100;
-            activeFilters.forEach(filterId => {
-                const filter = filters.find(f => f.id === filterId);
+            // Apply active filter
+            if (activeFilter) {
+                const filter = tiktokFilters.find(f => f.id === activeFilter);
                 if (filter && filter.apply) {
-                    filter.apply(tempCtx, tempCanvas.width, tempCanvas.height, intensity);
+                    filter.apply(tempCtx, tempCanvas.width, tempCanvas.height, filterIntensity / 100);
                 }
-            });
+            }
             
-            // Store image
-            capturedImage = tempCanvas;
+            // Store shot
+            const imageData = tempCanvas.toDataURL('image/jpeg');
+            shotsArray[shotsTaken] = imageData;
+            shotsTaken++;
             
-            // Show preview
-            previewPanel.classList.add('active');
-            isPreviewActive = true;
+            // Update display
+            updateShotDisplay();
             
-            // Render preview
-            renderPreview();
+            // If all shots taken, show collage
+            if (shotsTaken >= maxShotsCount) {
+                showMultiShotCollage();
+            }
+            
+            // Play capture sound
+            playCaptureSound();
         });
 
-        // Trigger flash animation
+        // Trigger Flash
         function triggerFlash() {
-            flashOverlay.classList.add('active');
+            flashEffect.classList.add('active');
             setTimeout(() => {
-                flashOverlay.classList.remove('active');
+                flashEffect.classList.remove('active');
             }, 400);
         }
 
-        // Render preview with aspect ratio
-        function renderPreview() {
-            if (!capturedImage || !previewContext) return;
+        // Show Multi-Shot Collage
+        function showMultiShotCollage() {
+            // Clear previous collage
+            multiShotGrid.innerHTML = '';
             
-            // Clear canvas
-            previewContext.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
-            
-            // Calculate crop based on aspect ratio
-            let sourceWidth = capturedImage.width;
-            let sourceHeight = capturedImage.height;
-            let sourceX = 0;
-            let sourceY = 0;
-            
-            let destWidth = previewCanvas.width;
-            let destHeight = previewCanvas.height;
-            let destX = 0;
-            let destY = 0;
-            
-            switch(currentAspectRatio) {
-                case '1:1':
-                    const size = Math.min(sourceWidth, sourceHeight);
-                    sourceX = (sourceWidth - size) / 2;
-                    sourceY = (sourceHeight - size) / 2;
-                    sourceWidth = sourceHeight = size;
-                    destHeight = destWidth;
-                    break;
+            // Create collage items
+            shotsArray.slice(0, maxShotsCount).forEach((shot, index) => {
+                if (shot) {
+                    const item = document.createElement('div');
+                    item.className = 'multi-shot-item';
                     
-                case '4:5':
-                    const targetHeight = sourceWidth * (5/4);
-                    if (targetHeight > sourceHeight) {
-                        const targetWidth = sourceHeight * (4/5);
-                        sourceX = (sourceWidth - targetWidth) / 2;
-                        sourceWidth = targetWidth;
-                    } else {
-                        sourceY = (sourceHeight - targetHeight) / 2;
-                        sourceHeight = targetHeight;
-                    }
-                    destHeight = destWidth * (5/4);
-                    destY = (previewCanvas.height - destHeight) / 2;
-                    break;
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
                     
-                case '16:9':
-                    const targetHeight16 = sourceWidth * (9/16);
-                    if (targetHeight16 > sourceHeight) {
-                        const targetWidth16 = sourceHeight * (16/9);
-                        sourceX = (sourceWidth - targetWidth16) / 2;
-                        sourceWidth = targetWidth16;
-                    } else {
-                        sourceY = (sourceHeight - targetHeight16) / 2;
-                        sourceHeight = targetHeight16;
-                    }
-                    destHeight = destWidth * (9/16);
-                    destY = (previewCanvas.height - destHeight) / 2;
-                    break;
-            }
+                    // Load image and draw to canvas
+                    const img = new Image();
+                    img.onload = () => {
+                        canvas.width = 400;
+                        canvas.height = 400;
+                        ctx.drawImage(img, 0, 0, 400, 400);
+                        
+                        // Add number badge
+                        const number = document.createElement('div');
+                        number.className = 'shot-number';
+                        number.textContent = index + 1;
+                        item.appendChild(number);
+                        
+                        item.appendChild(canvas);
+                    };
+                    img.src = shot;
+                    
+                    multiShotGrid.appendChild(item);
+                }
+            });
             
-            // Draw image
-            previewContext.drawImage(
-                capturedImage,
-                sourceX, sourceY, sourceWidth, sourceHeight,
-                destX, destY, destWidth, destHeight
-            );
-            
-            // Add watermark
-            addWatermark();
+            // Show panel
+            multiShotPanel.classList.add('active');
+            collageCount.textContent = `${maxShotsCount} SHOTS`;
         }
 
-        // Add watermark
-        function addWatermark() {
-            previewContext.font = '400 14px Poppins';
-            previewContext.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            previewContext.textAlign = 'right';
-            previewContext.textBaseline = 'bottom';
-            previewContext.fillText('FinessePhoto', previewCanvas.width - 15, previewCanvas.height - 15);
+        // Download Collage
+        downloadCollageBtn.addEventListener('click', () => {
+            // Create a collage canvas
+            const collageCanvas = document.createElement('canvas');
+            const collageCtx = collageCanvas.getContext('2d');
+            
+            // Set dimensions based on mode
+            let collageWidth, collageHeight;
+            switch(maxShotsCount) {
+                case 1:
+                    collageWidth = 2000;
+                    collageHeight = 2000;
+                    break;
+                case 2:
+                    collageWidth = 2000;
+                    collageHeight = 1000;
+                    break;
+                case 3:
+                case 4:
+                    collageWidth = 2000;
+                    collageHeight = 2000;
+                    break;
+            }
+            
+            collageCanvas.width = collageWidth;
+            collageCanvas.height = collageHeight;
+            
+            // Create images array
+            const images = shotsArray.slice(0, maxShotsCount).filter(shot => shot);
+            
+            // Load all images and create collage
+            Promise.all(images.map(src => 
+                new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => resolve(img);
+                    img.src = src;
+                })
+            )).then(loadedImages => {
+                // Draw collage based on mode
+                switch(maxShotsCount) {
+                    case 1:
+                        collageCtx.drawImage(loadedImages[0], 0, 0, collageWidth, collageHeight);
+                        break;
+                    case 2:
+                        collageCtx.drawImage(loadedImages[0], 0, 0, collageWidth/2, collageHeight);
+                        collageCtx.drawImage(loadedImages[1], collageWidth/2, 0, collageWidth/2, collageHeight);
+                        break;
+                    case 3:
+                        collageCtx.drawImage(loadedImages[0], 0, 0, collageWidth/2, collageHeight/2);
+                        collageCtx.drawImage(loadedImages[1], collageWidth/2, 0, collageWidth/2, collageHeight/2);
+                        collageCtx.drawImage(loadedImages[2], 0, collageHeight/2, collageWidth, collageHeight/2);
+                        break;
+                    case 4:
+                        collageCtx.drawImage(loadedImages[0], 0, 0, collageWidth/2, collageHeight/2);
+                        collageCtx.drawImage(loadedImages[1], collageWidth/2, 0, collageWidth/2, collageHeight/2);
+                        collageCtx.drawImage(loadedImages[2], 0, collageHeight/2, collageWidth/2, collageHeight/2);
+                        collageCtx.drawImage(loadedImages[3], collageWidth/2, collageHeight/2, collageWidth/2, collageHeight/2);
+                        break;
+                }
+                
+                // Add watermark
+                collageCtx.font = 'bold 40px Space Grotesk';
+                collageCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                collageCtx.textAlign = 'right';
+                collageCtx.fillText('NEXUSBOOTH 2026', collageWidth - 30, collageHeight - 30);
+                
+                // Create download link
+                const link = document.createElement('a');
+                link.download = `nexusbooth_collage_${Date.now()}.jpg`;
+                link.href = collageCanvas.toDataURL('image/jpeg', 0.95);
+                link.click();
+                
+                // Show feedback
+                const originalText = downloadCollageBtn.innerHTML;
+                downloadCollageBtn.innerHTML = '<i>✅</i> COLLAGE SAVED!';
+                downloadCollageBtn.style.opacity = '0.8';
+                
+                setTimeout(() => {
+                    downloadCollageBtn.innerHTML = originalText;
+                    downloadCollageBtn.style.opacity = '1';
+                }, 2000);
+            });
+        });
+
+        // Retake All Photos
+        retakeAllBtn.addEventListener('click', () => {
+            resetShots();
+            multiShotPanel.classList.remove('active');
+        });
+
+        // Reset All Shots
+        function resetShots() {
+            shotsTaken = 0;
+            shotsArray = new Array(4).fill(null);
+            updateShotDisplay();
         }
 
-        // Download photo
-        downloadBtn.addEventListener('click', () => {
-            if (!capturedImage) return;
-            
-            const link = document.createElement('a');
-            link.download = `finessephoto_${Date.now()}.jpg`;
-            
-            // Create high-quality version
-            const outputCanvas = document.createElement('canvas');
-            const outputCtx = outputCanvas.getContext('2d');
-            
-            // Set high resolution
-            outputCanvas.width = 2000;
-            outputCanvas.height = 2000;
-            
-            // Draw with quality
-            outputCtx.imageSmoothingEnabled = true;
-            outputCtx.imageSmoothingQuality = 'high';
-            
-            // Calculate aspect ratio for output
-            let outputWidth, outputHeight;
-            switch(currentAspectRatio) {
-                case '1:1':
-                    outputWidth = outputHeight = 2000;
-                    break;
-                case '4:5':
-                    outputWidth = 1600;
-                    outputHeight = 2000;
-                    break;
-                case '16:9':
-                    outputWidth = 2000;
-                    outputHeight = 1125;
-                    break;
+        // Play Capture Sound
+        function playCaptureSound() {
+            // Create a simple beep sound
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(600, audioContext.currentTime + 0.1);
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } catch (e) {
+                console.log('Audio not supported');
             }
-            
-            outputCtx.drawImage(capturedImage, 0, 0, outputWidth, outputHeight);
-            
-            // Add watermark
-            outputCtx.font = '400 24px Poppins';
-            outputCtx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            outputCtx.textAlign = 'right';
-            outputCtx.textBaseline = 'bottom';
-            outputCtx.fillText('FinessePhoto', outputWidth - 30, outputHeight - 30);
-            
-            link.href = outputCanvas.toDataURL('image/jpeg', 0.95);
-            link.click();
-            
-            // Feedback
-            const originalText = downloadBtn.innerHTML;
-            downloadBtn.innerHTML = '<i>✅</i> Downloaded!';
-            downloadBtn.style.opacity = '0.8';
-            
-            setTimeout(() => {
-                downloadBtn.innerHTML = originalText;
-                downloadBtn.style.opacity = '1';
-            }, 2000);
-        });
+        }
 
-        // Retake photo
-        retakeBtn.addEventListener('click', () => {
-            previewPanel.classList.remove('active');
-            capturedImage = null;
-            isPreviewActive = false;
-        });
-
-        // Intensity slider
-        intensitySlider.addEventListener('input', () => {
-            const value = intensitySlider.value;
-            intensityValue.textContent = `${value}%`;
-            
-            if (capturedImage) {
-                renderPreview();
+        // Show Loading
+        function showLoading(message) {
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'flex';
+                loadingOverlay.querySelector('.loading-text').textContent = message;
             }
-        });
+        }
 
-        // Error message
+        // Hide Loading
+        function hideLoading() {
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'none';
+            }
+        }
+
+        // Show Error
         function showError(message) {
-            cameraStatus.textContent = message;
-            cameraStatus.style.color = 'var(--error)';
+            shotCounter.textContent = message;
+            shotCounter.style.color = 'var(--neon-pink)';
         }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            initCamera();
-            createFilterCards();
-            initRatioControls();
-            updateFilterCount();
+        // TikTok 2026 Filter Effects
+        function applyAlienEffect(ctx, width, height, intensity) {
+            // Green alien overlay with glitch effect
+            ctx.fillStyle = `rgba(0, 255, 100, ${0.3 * intensity})`;
+            ctx.globalCompositeOperation = 'overlay';
+            ctx.fillRect(0, 0, width, height);
             
-            // Set initial intensity value
-            intensityValue.textContent = `${intensitySlider.value}%`;
-        });
+            // Add glitch effect
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                // Boost green channel
+                data[i + 1] = Math.min(255, data[i + 1] * (1 + 0.5 * intensity));
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+            ctx.globalCompositeOperation = 'source-over';
+            
+            // Add scan lines
+            ctx.strokeStyle = `rgba(0, 255, 100, ${0.1 * intensity})`;
+            for (let y = 0; y < height; y += 4) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
+            }
+        }
 
+        function applyRainbowEffect(ctx, width, height, intensity) {
+            // Create rainbow gradient overlay
+            const time = Date.now() / 1000;
+            const hue = (time * 60) % 360;
+            
+            const gradient = ctx.createLinearGradient(0, 0, width, 0);
+            for (let i = 0; i < 6; i++) {
+                gradient.addColorStop(i/6, `hsla(${(hue + i * 60) % 360}, 100%, 50%, ${0.2 * intensity})`);
+            }
+            
+            ctx.fillStyle = gradient;
+            ctx.globalCompositeOperation = 'overlay';
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'source-over';
+            
+            // Add rainbow particles
+            for (let i = 0; i < 20 * intensity; i++) {
+                const x = Math.random() * width;
+                const y = Math.random() * height;
+                const size = 2 + Math.random() * 8;
+                const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function applyGlitchEffect(ctx, width, height, intensity) {
+            // Create glitch displacement
+            const glitchAmount = 10 * intensity;
+            const glitchHeight = height * 0.1;
+            
+            for (let i = 0; i < 3; i++) {
+                const y = Math.random() * height;
+                const displacement = (Math.random() - 0.5) * glitchAmount * 2;
+                
+                // Copy and shift a slice
+                const slice = ctx.getImageData(0, y, width, glitchHeight);
+                ctx.putImageData(slice, displacement, y);
+            }
+            
+            // Add RGB split
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                // RGB shift
+                const shift = Math.random() * 10 * intensity;
+                data[i] = Math.min(255, data[i] + shift); // Red shift
+                data[i + 2] = Math.max(0, data[i + 2] - shift); // Blue shift
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function applySparkleEffect(ctx, width, height, intensity) {
+            // Add sparkle particles
+            const time = Date.now() / 1000;
+            
+            for (let i = 0; i < 30 * intensity; i++) {
+                const x = (width * 0.3) + Math.sin(time + i) * width * 0.4;
+                const y = (time * 100 + i * 50) % height;
+                const size = 3 + Math.sin(time * 2 + i) * 5;
+                
+                // Create sparkle
+                ctx.fillStyle = `rgba(255, 255, 255, ${0.8 * intensity})`;
+                ctx.save();
+                ctx.translate(x, y);
+                
+                // Draw star shape
+                for (let j = 0; j < 5; j++) {
+                    ctx.rotate(Math.PI * 2 / 5);
+                    ctx.fillRect(-size/2, -size/20, size, size/10);
+                }
+                
+                ctx.restore();
+            }
+        }
+
+        function applyGlassSkinEffect(ctx, width, height, intensity) {
+            // Apply skin smoothing and glow
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            // Simple blur effect for skin smoothing
+            for (let i = 4; i < data.length; i += 4) {
+                // Average with previous pixel (simple blur)
+                data[i] = (data[i] + data[i - 4]) / 2;
+                data[i + 1] = (data[i + 1] + data[i - 3]) / 2;
+                data[i + 2] = (data[i + 2] + data[i - 2]) / 2;
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+            
+            // Add glow overlay
+            const gradient = ctx.createRadialGradient(
+                width / 2, height / 3, 0,
+                width / 2, height / 3, Math.max(width, height) / 2
+            );
+            gradient.addColorStop(0, `rgba(255, 255, 255, ${0.3 * intensity})`);
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            
+            ctx.fillStyle = gradient;
+            ctx.globalCompositeOperation = 'overlay';
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        function applyDollEffect(ctx, width, height, intensity) {
+            // Apply anime doll effect (simplified)
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                // Increase brightness and reduce saturation
+                const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                data[i] = avg * 0.3 + data[i] * 0.7;
+                data[i + 1] = avg * 0.3 + data[i + 1] * 0.7;
+                data[i + 2] = avg * 0.3 + data[i + 2] * 0.7;
+                
+                // Brighten
+                data[i] = Math.min(255, data[i] + 40 * intensity);
+                data[i + 1] = Math.min(255, data[i + 1] + 40 * intensity);
+                data[i + 2] = Math.min(255, data[i + 2] + 40 * intensity);
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+            
+            // Draw anime-style blush
+            ctx.fillStyle = `rgba(255, 200, 200, ${0.4 * intensity})`;
+            ctx.beginPath();
+            ctx.arc(width * 0.3, height * 0.6, 30 * intensity, 0, Math.PI * 2);
+            ctx.arc(width * 0.7, height * 0.6, 30 * intensity, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function applyBlushEffect(ctx, width, height, intensity) {
+            // Add cute blush circles
+            ctx.fillStyle = `rgba(255, 150, 150, ${0.5 * intensity})`;
+            ctx.beginPath();
+            ctx.arc(width * 0.35, height * 0.6, 40 * intensity, 0, Math.PI * 2);
+            ctx.arc(width * 0.65, height * 0.6, 40 * intensity, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Add sparkle to blush
+            ctx.fillStyle = `rgba(255, 255, 255, ${0.8 * intensity})`;
+            ctx.beginPath();
+            ctx.arc(width * 0.4, height * 0.55, 5 * intensity, 0, Math.PI * 2);
+            ctx.arc(width * 0.6, height * 0.55, 5 * intensity, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function applyGoldenHourEffect(ctx, width, height, intensity) {
+            // Add warm golden overlay
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, `rgba(255, 200, 50, ${0.3 * intensity})`);
+            gradient.addColorStop(1, `rgba(255, 100, 0, ${0.2 * intensity})`);
+            
+            ctx.fillStyle = gradient;
+            ctx.globalCompositeOperation = 'overlay';
+            ctx.fillRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'source-over';
+        }
+
+        function applyAnimeEffect(ctx, width, height, intensity) {
+            // Apply anime-style color grading
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            for (let i = 0; i < data.length; i += 4) {
+                // Boost saturation and contrast
+                const max = Math.max(data[i], data[i + 1], data[i + 2]);
+                data[i] = Math.min(255, data[i] * 1.2);
+                data[i + 1] = Math.min(255, data[i + 1] * 1.1);
+                data[i + 2] = Math.min(255, data[i + 2] * 1.3);
+                
+                // Increase contrast
+                data[i] = ((data[i] - 128) * 1.2) + 128;
+                data[i + 1] = ((data[i + 1] - 128) * 1.2) + 128;
+                data[i + 2] = ((data[i + 2] - 128) * 1.2) + 128;
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+            
+            // Add anime shine to eyes (simulated)
+            ctx.fillStyle = `rgba(255, 255, 255, ${0.8 * intensity})`;
+            ctx.beginPath();
+            ctx.arc(width * 0.4, height * 0.45, 8 * intensity, 0, Math.PI * 2);
+            ctx.arc(width * 0.6, height * 0.45, 8 * intensity, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function applyCatEffect(ctx, width, height, intensity) {
+            // Draw cat ears
+            ctx.fillStyle = `rgba(255, 182, 193, ${intensity})`;
+            
+            // Left ear
+            ctx.beginPath();
+            ctx.moveTo(width * 0.4, height * 0.2);
+            ctx.lineTo(width * 0.35, height * 0.1);
+            ctx.lineTo(width * 0.45, height * 0.15);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Right ear
+            ctx.beginPath();
+            ctx.moveTo(width * 0.6, height * 0.2);
+            ctx.lineTo(width * 0.65, height * 0.1);
+            ctx.lineTo(width * 0.55, height * 0.15);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw cat nose
+            ctx.fillStyle = 'pink';
+            ctx.beginPath();
+            ctx.arc(width * 0.5, height * 0.45, 10 * intensity, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw whiskers
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2 * intensity;
+            
+            for (let i = 0; i < 3; i++) {
+                // Left whiskers
+                ctx.beginPath();
+                ctx.moveTo(width * 0.4, height * 0.45);
+                ctx.lineTo(width * 0.3 - i * 8, height * 0.4 + i * 8);
+                ctx.stroke();
+                
+                // Right whiskers
+                ctx.beginPath();
+                ctx.moveTo(width * 0.6, height * 0.45);
+                ctx.lineTo(width * 0.7 + i * 8, height * 0.4 + i * 8);
+                ctx.stroke();
+            }
+        }
+
+        function applyClownEffect(ctx, width, height, intensity) {
+            // Draw red clown nose
+            ctx.fillStyle = '#FF0000';
+            ctx.beginPath();
+            ctx.arc(width * 0.5, height * 0.4, 30 * intensity, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw clown hair (rainbow)
+            const colors = ['#FF0000', '#FF9900', '#FFFF00', '#00FF00', '#0000FF', '#9900FF'];
+            for (let i = 0; i < 6; i++) {
+                ctx.fillStyle = colors[i];
+                ctx.beginPath();
+                ctx.arc(
+                    width * 0.5 + Math.cos(i * Math.PI / 3) * 50,
+                    height * 0.15 + Math.sin(i * Math.PI / 3) * 30,
+                    25 * intensity,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fill();
+            }
+        }
+
+        // Note: Face swap would require advanced face detection
+        function applyFaceSwapEffect(ctx, width, height, intensity) {
+            // Simplified version - just a fun effect
+            const imageData = ctx.getImageData(0, 0, width, height);
+            const data = imageData.data;
+            
+            // Create a mirror effect for "swap"
+            for (let i = 0; i < data.length / 2; i += 4) {
+                const mirrorIndex = data.length - i - 4;
+                
+                // Swap RGB values
+                const tempR = data[i];
+                const tempG = data[i + 1];
+                const tempB = data[i + 2];
+                
+                data[i] = data[mirrorIndex];
+                data[i + 1] = data[mirrorIndex + 1];
+                data[i + 2] = data[mirrorIndex + 2];
+                
+                data[mirrorIndex] = tempR;
+                data[mirrorIndex + 1] = tempG;
+                data[mirrorIndex + 2] = tempB;
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        // Note: AR effects would require face tracking
+        function applyCrownEffect(ctx, width, height, intensity) {
+            // Draw a simple crown at top
+            ctx.fillStyle = `rgba(255, 215, 0, ${intensity})`;
+            ctx.save();
+            ctx.translate(width * 0.5, height * 0.2);
+            
+            // Crown base
+            ctx.fillRect(-40, 0, 80, 15);
+            
+            // Crown points
+            for (let i = 0; i < 5; i++) {
+                ctx.beginPath();
+                ctx.moveTo(-30 + i * 20, 0);
+                ctx.lineTo(-20 + i * 20, -20);
+                ctx.lineTo(-10 + i * 20, 0);
+                ctx.closePath();
+                ctx.fill();
+            }
+            
+            ctx.restore();
+            
+            // Add sparkle
+            ctx.fillStyle = `rgba(255, 255, 255, ${0.8 * intensity})`;
+            ctx.beginPath();
+            ctx.arc(width * 0.5, height * 0.15, 5 * intensity, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', initApp);
+        
         // Cleanup
         window.addEventListener('beforeunload', () => {
             if (currentStream) {
                 currentStream.getTracks().forEach(track => track.stop());
             }
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
         });
-
-        // Filter Effect Functions
-        function applyPortraitEffect(ctx, width, height, intensity) {
-            const imageData = ctx.getImageData(0, 0, width, height);
-            const data = imageData.data;
-            
-            // Simple skin smoothing
-            for (let i = 0; i < data.length; i += 4) {
-                // Reduce noise (simple blur effect)
-                if (i > width * 4) {
-                    const prev = i - width * 4;
-                    data[i] = (data[i] + data[prev]) / 2;
-                    data[i + 1] = (data[i + 1] + data[prev + 1]) / 2;
-                    data[i + 2] = (data[i + 2] + data[prev + 2]) / 2;
-                }
-            }
-            
-            ctx.putImageData(imageData, 0, 0);
-        }
-
-        function applyGlamourEffect(ctx, width, height, intensity) {
-            // Soft glow overlay
-            const gradient = ctx.createRadialGradient(
-                width / 2, height / 3, 0,
-                width / 2, height / 3, Math.max(width, height) / 2
-            );
-            gradient.addColorStop(0, `rgba(255, 255, 255, ${0.2 * intensity})`);
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            
-            ctx.fillStyle = gradient;
-            ctx.globalCompositeOperation = 'overlay';
-            ctx.fillRect(0, 0, width, height);
-            ctx.globalCompositeOperation = 'source-over';
-        }
-
-        function applyDramaticEyesEffect(ctx, width, height, intensity) {
-            // This would require face detection
-            // For now, apply general contrast boost
-            const imageData = ctx.getImageData(0, 0, width, height);
-            const data = imageData.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                // Increase contrast
-                const contrast = 1.0 + 0.5 * intensity;
-                data[i] = ((data[i] - 128) * contrast) + 128;
-                data[i + 1] = ((data[i + 1] - 128) * contrast) + 128;
-                data[i + 2] = ((data[i + 2] - 128) * contrast) + 128;
-            }
-            
-            ctx.putImageData(imageData, 0, 0);
-        }
-
-        function applyVintageEffect(ctx, width, height, intensity) {
-            // Sepia tone
-            const imageData = ctx.getImageData(0, 0, width, height);
-            const data = imageData.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                const r = data[i];
-                const g = data[i + 1];
-                const b = data[i + 2];
-                
-                data[i] = Math.min(255, (r * 0.393) + (g * 0.769) + (b * 0.189));
-                data[i + 1] = Math.min(255, (r * 0.349) + (g * 0.686) + (b * 0.168));
-                data[i + 2] = Math.min(255, (r * 0.272) + (g * 0.534) + (b * 0.131));
-            }
-            
-            ctx.putImageData(imageData, 0, 0);
-            
-            // Add vignette
-            const gradient = ctx.createRadialGradient(
-                width / 2, height / 2, 0,
-                width / 2, height / 2, Math.max(width, height) / 2
-            );
-            gradient.addColorStop(0, 'rgba(0, 0, 0, 0)');
-            gradient.addColorStop(1, `rgba(0, 0, 0, ${0.3 * intensity})`);
-            
-            ctx.fillStyle = gradient;
-            ctx.globalCompositeOperation = 'multiply';
-            ctx.fillRect(0, 0, width, height);
-            ctx.globalCompositeOperation = 'source-over';
-        }
-
-        function applyMonochromeEffect(ctx, width, height, intensity) {
-            const imageData = ctx.getImageData(0, 0, width, height);
-            const data = imageData.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                const avg = data[i] * 0.3 + data[i + 1] * 0.59 + data[i + 2] * 0.11;
-                data[i] = avg;
-                data[i + 1] = avg;
-                data[i + 2] = avg;
-            }
-            
-            ctx.putImageData(imageData, 0, 0);
-        }
-
-        function applyCinematicEffect(ctx, width, height, intensity) {
-            // Blue/orange color grade
-            const imageData = ctx.getImageData(0, 0, width, height);
-            const data = imageData.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                // Boost oranges, reduce blues
-                data[i] = Math.min(255, data[i] * 1.1); // Red
-                data[i + 2] = Math.max(0, data[i + 2] * 0.9); // Blue
-            }
-            
-            ctx.putImageData(imageData, 0, 0);
-        }
-
-        function applyGoldenHourEffect(ctx, width, height, intensity) {
-            // Warm golden overlay
-            const gradient = ctx.createLinearGradient(0, 0, width, height);
-            gradient.addColorStop(0, `rgba(255, 200, 100, ${0.3 * intensity})`);
-            gradient.addColorStop(1, `rgba(255, 150, 50, ${0.2 * intensity})`);
-            
-            ctx.fillStyle = gradient;
-            ctx.globalCompositeOperation = 'overlay';
-            ctx.fillRect(0, 0, width, height);
-            ctx.globalCompositeOperation = 'source-over';
-        }
-
-        function applyCoolToneEffect(ctx, width, height, intensity) {
-            const imageData = ctx.getImageData(0, 0, width, height);
-            const data = imageData.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                // Boost blues, reduce reds
-                data[i] = Math.max(0, data[i] * 0.9); // Red
-                data[i + 2] = Math.min(255, data[i + 2] * 1.1); // Blue
-            }
-            
-            ctx.putImageData(imageData, 0, 0);
-        }
-
-        function applyPastelEffect(ctx, width, height, intensity) {
-            const imageData = ctx.getImageData(0, 0, width, height);
-            const data = imageData.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                // Reduce saturation, increase brightness
-                const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-                data[i] = avg * intensity + data[i] * (1 - intensity);
-                data[i + 1] = avg * intensity + data[i + 1] * (1 - intensity);
-                data[i + 2] = avg * intensity + data[i + 2] * (1 - intensity);
-                
-                // Brighten
-                data[i] = Math.min(255, data[i] + 30 * intensity);
-                data[i + 1] = Math.min(255, data[i + 1] + 30 * intensity);
-                data[i + 2] = Math.min(255, data[i + 2] + 30 * intensity);
-            }
-            
-            ctx.putImageData(imageData, 0, 0);
-        }
-
-        function applyStudioLightEffect(ctx, width, height, intensity) {
-            // Simulate studio lighting
-            const gradient = ctx.createRadialGradient(
-                width / 2, height / 3, 0,
-                width / 2, height / 3, width
-            );
-            gradient.addColorStop(0, `rgba(255, 255, 255, ${0.4 * intensity})`);
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            
-            ctx.fillStyle = gradient;
-            ctx.globalCompositeOperation = 'screen';
-            ctx.fillRect(0, 0, width, height);
-            ctx.globalCompositeOperation = 'source-over';
-        }
-
-        function applyMoodyEffect(ctx, width, height, intensity) {
-            const imageData = ctx.getImageData(0, 0, width, height);
-            const data = imageData.data;
-            
-            for (let i = 0; i < data.length; i += 4) {
-                // Darken shadows
-                const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
-                if (avg < 128) {
-                    const darken = (128 - avg) * 0.5 * intensity;
-                    data[i] = Math.max(0, data[i] - darken);
-                    data[i + 1] = Math.max(0, data[i + 1] - darken);
-                    data[i + 2] = Math.max(0, data[i + 2] - darken);
-                }
-            }
-            
-            ctx.putImageData(imageData, 0, 0);
-        }
-
-        function applyHaloEffect(ctx, width, height, intensity) {
-            // Create halo effect
-            const gradient = ctx.createRadialGradient(
-                width / 2, height / 3, 0,
-                width / 2, height / 3, width * 0.7
-            );
-            gradient.addColorStop(0, `rgba(255, 255, 255, ${0.6 * intensity})`);
-            gradient.addColorStop(0.5, `rgba(255, 255, 255, ${0.2 * intensity})`);
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            
-            ctx.fillStyle = gradient;
-            ctx.globalCompositeOperation = 'screen';
-            ctx.fillRect(0, 0, width, height);
-            ctx.globalCompositeOperation = 'source-over';
-        }
     </script>
 </body>
 </html>
