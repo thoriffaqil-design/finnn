@@ -1,615 +1,1039 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="neuro-dark">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="quantum-enabled" content="true">
-    <title>NEXUS Photobooth | 2026 Edition</title>
-    
-    <!-- Quantum Design System -->
-    <link rel="stylesheet" href="https://cdn.quantumcss.com/2026/neuro-glass.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css6?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;500&display=swap">
-    
-    <!-- Holographic JS -->
-    <script src="https://webgl.holojs.dev/v3/advanced.js" defer></script>
-    
-    <!-- AI Photobooth Core -->
-    <script type="module" src="https://unpkg.com/@ai-photobooth/core@2026"></script>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlowPlus | AI Photobooth</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --quantum-primary: #00f3ff;
-            --quantum-secondary: #ff00ff;
-            --neuro-bg: #0a0a14;
-            --glass-blur: 20px;
-            --hologram-intensity: 0.8;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
         
         body {
-            font-family: 'Exo 2', sans-serif;
-            background: var(--neuro-bg);
-            color: #fff;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: #333;
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
         }
         
-        /* Holographic Background Effect */
-        .hologram-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(0, 243, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.15) 0%, transparent 50%);
-            z-index: -1;
-            animation: quantum-pulse 8s infinite alternate;
-        }
-        
-        /* Neuro-Glass Navigation */
-        .neuro-nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 3rem;
+        /* Header */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(var(--glass-blur));
-            border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+            padding: 20px 40px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            top: 0;
+            width: 100%;
             z-index: 1000;
         }
         
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, var(--quantum-primary), var(--quantum-secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff6b8b;
         }
         
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 2.5rem;
-            font-size: 1.1rem;
-            position: relative;
-            padding: 0.5rem 0;
-            transition: all 0.3s ease;
+        .logo i {
+            font-size: 28px;
         }
         
-        .nav-links a:hover {
-            color: var(--quantum-primary);
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
         }
         
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--quantum-primary);
-            transition: width 0.3s ease;
+        .btn-premium {
+            background: linear-gradient(135deg, #ff6b8b, #ff8e53);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(255, 107, 139, 0.3);
         }
         
-        .nav-links a:hover::after {
-            width: 100%;
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 139, 0.4);
         }
         
         /* Main Container */
         .main-container {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
+            display: flex;
+            padding-top: 100px;
             min-height: 100vh;
-            padding: 8rem 3rem 3rem;
-            gap: 3rem;
-            max-width: 1800px;
-            margin: 0 auto;
         }
         
-        /* Control Panel (Left) */
-        .control-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(var(--glass-blur));
-            border-radius: 2rem;
-            padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        /* Left Panel - Filters */
+        .left-panel {
+            width: 100px;
+            background: white;
+            padding: 30px 15px;
+            box-shadow: 4px 0 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 100;
         }
         
-        .panel-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            color: var(--quantum-primary);
+        .filter-category {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+        
+        .filter-category h4 {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .filter-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            justify-content: center;
+            margin: 0 auto 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 22px;
         }
         
-        .panel-title::before {
-            content: '⚡';
-            font-size: 2rem;
+        .filter-icon.active {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(106, 17, 203, 0.3);
         }
         
-        /* Camera Preview Area (Right) */
+        .filter-icon:hover:not(.active) {
+            background: #eef2ff;
+            transform: translateY(-3px);
+        }
+        
+        /* Camera Area */
         .camera-area {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 2rem;
-            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
             position: relative;
-            border: 1px solid rgba(0, 243, 255, 0.2);
+        }
+        
+        .camera-preview-container {
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            border-radius: 20px;
             overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            background: #000;
+            margin-bottom: 30px;
         }
         
         #camera-preview {
             width: 100%;
-            height: 600px;
-            background: #000;
-            border-radius: 1.5rem;
+            height: 100%;
             object-fit: cover;
             display: block;
-            margin-bottom: 2rem;
-            border: 2px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* Quantum Buttons */
-        .quantum-btn {
-            background: linear-gradient(135deg, 
-                rgba(0, 243, 255, 0.2), 
-                rgba(255, 0, 255, 0.2));
-            border: 1px solid rgba(0, 243, 255, 0.4);
-            color: white;
-            padding: 1.2rem 2.5rem;
-            border-radius: 1rem;
-            font-family: 'Exo 2', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .camera-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        
+        .camera-controls {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
-            width: 100%;
-            margin-top: 2rem;
+            font-size: 20px;
+            color: #555;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: white;
+            transform: scale(1.1);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+        
+        .control-btn.active {
+            background: #6a11cb;
+            color: white;
+        }
+        
+        .timer-display {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            display: none;
+        }
+        
+        /* Capture Button */
+        .capture-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .capture-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: white;
+            border: 5px solid #ff6b8b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 107, 139, 0.4);
+            transition: all 0.3s ease;
             position: relative;
+        }
+        
+        .capture-btn:before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #ff6b8b;
+        }
+        
+        .capture-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 139, 0.5);
+        }
+        
+        .capture-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Filter Bar (Bottom) */
+        .filter-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+        
+        .filter-bar h3 {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #555;
+            padding-left: 120px;
+        }
+        
+        .filters-container {
+            display: flex;
+            gap: 15px;
+            padding-left: 120px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .filter-item {
+            flex-shrink: 0;
+            width: 100px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-preview {
+            width: 100px;
+            height: 130px;
+            border-radius: 12px;
             overflow: hidden;
+            margin-bottom: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         
-        .quantum-btn:hover {
-            background: linear-gradient(135deg, 
-                rgba(0, 243, 255, 0.4), 
-                rgba(255, 0, 255, 0.4));
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 243, 255, 0.3);
+        .filter-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
-        .quantum-btn::before {
+        .filter-preview:after {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 255, 255, 0.2), 
-                transparent);
-            transition: left 0.7s ease;
-        }
-        
-        .quantum-btn:hover::before {
-            left: 100%;
-        }
-        
-        /* AI Filter Selector */
-        .filter-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.2rem;
-            margin: 2rem 0;
-        }
-        
-        .filter-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
             transition: all 0.3s ease;
-            border: 1px solid transparent;
         }
         
-        .filter-card:hover {
-            background: rgba(0, 243, 255, 0.1);
-            border-color: var(--quantum-primary);
+        .filter-item.active .filter-preview:after {
+            border: 3px solid #6a11cb;
+            box-shadow: inset 0 0 0 2px white;
+        }
+        
+        .filter-item.active .filter-preview {
             transform: translateY(-5px);
         }
         
-        .filter-card.active {
-            background: rgba(0, 243, 255, 0.2);
-            border-color: var(--quantum-primary);
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+        .filter-name {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
         }
         
-        .filter-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
+        .filter-item.active .filter-name {
+            color: #6a11cb;
+            font-weight: 600;
+        }
+        
+        /* Right Panel - Editing Tools */
+        .right-panel {
+            width: 300px;
+            background: white;
+            padding: 30px 20px;
+            box-shadow: -4px 0 12px rgba(0, 0, 0, 0.05);
+            overflow-y: auto;
+        }
+        
+        .tool-section {
+            margin-bottom: 30px;
+        }
+        
+        .tool-section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .tool-section h3 span {
+            font-size: 12px;
+            color: #888;
+            font-weight: 400;
+        }
+        
+        .slider-container {
+            margin-bottom: 20px;
+        }
+        
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: #eaeaea;
+            border-radius: 3px;
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #6a11cb;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(106, 17, 203, 0.3);
+        }
+        
+        .effect-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        
+        .effect-item {
+            text-align: center;
+            cursor: pointer;
+            padding: 10px 5px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .effect-item:hover {
+            background: #f8f9fa;
+        }
+        
+        .effect-item.active {
+            background: #f0f4ff;
+            color: #6a11cb;
+        }
+        
+        .effect-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
             display: block;
         }
         
-        /* Photo Gallery Grid */
-        .gallery-container {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .effect-name {
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* Gallery Modal */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+        
+        .gallery-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .gallery-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .gallery-header h2 {
+            font-size: 22px;
+            color: #333;
+        }
+        
+        .close-gallery {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #888;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-gallery:hover {
+            background: #f8f8f8;
+            color: #333;
         }
         
         .gallery-grid {
+            padding: 30px;
+            flex: 1;
+            overflow-y: auto;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
+            gap: 20px;
         }
         
         .gallery-item {
-            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
             height: 150px;
-            object-fit: cover;
-            border-radius: 0.8rem;
             cursor: pointer;
-            transition: transform 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
-        .gallery-item:hover {
-            transform: scale(1.05);
-            border-color: var(--quantum-primary);
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
-        /* Neuro Animation */
-        @keyframes quantum-pulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-        
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 1200px) {
-            .main-container {
-                grid-template-columns: 1fr;
-                padding: 7rem 2rem 2rem;
+            .right-panel {
+                display: none;
             }
             
-            .camera-area {
-                height: 500px;
-            }
-            
-            #camera-preview {
-                height: 400px;
+            .filters-container, .filter-bar h3 {
+                padding-left: 30px;
             }
         }
         
         @media (max-width: 768px) {
-            .neuro-nav {
-                padding: 1rem 1.5rem;
-                flex-direction: column;
-                gap: 1rem;
+            .left-panel {
+                display: none;
             }
             
-            .nav-links {
-                display: flex;
-                gap: 1.5rem;
+            .camera-preview-container {
+                height: 500px;
             }
             
-            .nav-links a {
-                margin-left: 0;
+            .filters-container, .filter-bar h3 {
+                padding-left: 20px;
             }
             
-            .logo {
-                font-size: 1.8rem;
+            .header {
+                padding: 15px 20px;
             }
             
-            .filter-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .logo span {
+                display: none;
+            }
+            
+            .btn-premium span {
+                display: none;
+            }
+            
+            .btn-premium {
+                padding: 10px 15px;
             }
         }
         
-        /* Quantum Loader */
-        .quantum-loader {
-            display: none;
+        /* Loading */
+        .loader {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             z-index: 9999;
+            transition: opacity 0.5s ease;
         }
         
-        .loader-ring {
-            width: 120px;
-            height: 120px;
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #6a11cb;
             border-radius: 50%;
-            border: 5px solid transparent;
-            border-top: 5px solid var(--quantum-primary);
-            border-bottom: 5px solid var(--quantum-secondary);
-            animation: spin 1.5s linear infinite;
+            animation: spin 1s linear infinite;
         }
         
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        /* Photo Canvas */
+        .photo-canvas {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <!-- Holographic Background -->
-    <div class="hologram-bg"></div>
-    
-    <!-- Quantum Loader -->
-    <div class="quantum-loader" id="loader">
-        <div class="loader-ring"></div>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
     </div>
     
-    <!-- Neuro-Glass Navigation -->
-    <nav class="neuro-nav">
-        <div class="logo">NEXUS.PHOTOBOOTH</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#gallery">Gallery</a>
-            <a href="#filters">AI Filters</a>
-            <a href="#metaverse">Metaverse</a>
-            <a href="#blockchain">Blockchain Proof</a>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-camera-retro"></i>
+            <span>GlowPlus</span>
         </div>
-    </nav>
+        <div class="header-actions">
+            <button class="btn-premium" id="premium-btn">
+                <i class="fas fa-crown"></i>
+                <span>Go Premium</span>
+            </button>
+            <button class="control-btn" id="gallery-btn" title="Gallery">
+                <i class="fas fa-images"></i>
+            </button>
+        </div>
+    </header>
     
     <!-- Main Container -->
     <div class="main-container">
-        <!-- Control Panel -->
-        <div class="control-panel">
-            <h2 class="panel-title">QUANTUM CONTROL</h2>
-            
-            <!-- Camera Controls -->
-            <div class="control-section">
-                <h3 style="color: #fff; margin-bottom: 1.5rem; font-size: 1.3rem;">📸 Camera Setup</h3>
-                <select id="camera-select" style="width: 100%; padding: 1rem; border-radius: 0.8rem; background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(0,243,255,0.3); margin-bottom: 1.5rem;">
-                    <option value="">Select Camera...</option>
-                </select>
-                
-                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                    <button class="quantum-btn" id="start-camera" style="flex: 1;">
-                        <span>🎥</span> Start Camera
-                    </button>
-                    <button class="quantum-btn" id="stop-camera" style="flex: 1; background: rgba(255,50,50,0.2);">
-                        <span>⏹️</span> Stop
-                    </button>
+        <!-- Left Panel - Filter Categories -->
+        <div class="left-panel">
+            <div class="filter-category">
+                <h4>Beauty</h4>
+                <div class="filter-icon active" data-category="beauty">
+                    <i class="fas fa-sparkles"></i>
                 </div>
             </div>
-            
-            <!-- AI Filters -->
-            <div class="control-section">
-                <h3 style="color: #fff; margin: 2rem 0 1.5rem; font-size: 1.3rem;">🤖 AI Neural Filters</h3>
-                <div class="filter-grid">
-                    <div class="filter-card active" data-filter="hologram">
-                        <span class="filter-icon">👁️</span>
-                        Hologram Vision
-                    </div>
-                    <div class="filter-card" data-filter="cyberpunk">
-                        <span class="filter-icon">🔮</span>
-                        Cyberpunk 2026
-                    </div>
-                    <div class="filter-card" data-filter="neuro">
-                        <span class="filter-icon">🧠</span>
-                        Neuro-Glow
-                    </div>
-                    <div class="filter-card" data-filter="quantum">
-                        <span class="filter-icon">⚛️</span>
-                        Quantum Shift
-                    </div>
-                    <div class="filter-card" data-filter="matrix">
-                        <span class="filter-icon">📡</span>
-                        Matrix Code
-                    </div>
-                    <div class="filter-card" data-filter="biometric">
-                        <span class="filter-icon">😊</span>
-                        Mood Match
-                    </div>
+            <div class="filter-category">
+                <h4>Portrait</h4>
+                <div class="filter-icon" data-category="portrait">
+                    <i class="fas fa-user"></i>
                 </div>
             </div>
-            
-            <!-- Capture & Actions -->
-            <button class="quantum-btn" id="capture-btn">
-                <span>📸</span> CAPTURE QUANTUM SHOT
-            </button>
-            
-            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <button class="quantum-btn" id="download-btn" style="flex: 1; padding: 1rem;">
-                    <span>⬇️</span> Download
-                </button>
-                <button class="quantum-btn" id="share-btn" style="flex: 1; padding: 1rem;">
-                    <span>🌐</span> Share to Metaverse
-                </button>
-                <button class="quantum-btn" id="nft-btn" style="flex: 1; padding: 1rem; background: rgba(130,71,229,0.2);">
-                    <span>🪙</span> Mint as NFT
-                </button>
+            <div class="filter-category">
+                <h4>Natural</h4>
+                <div class="filter-icon" data-category="natural">
+                    <i class="fas fa-leaf"></i>
+                </div>
+            </div>
+            <div class="filter-category">
+                <h4>Artistic</h4>
+                <div class="filter-icon" data-category="artistic">
+                    <i class="fas fa-palette"></i>
+                </div>
+            </div>
+            <div class="filter-category">
+                <h4>Vintage</h4>
+                <div class="filter-icon" data-category="vintage">
+                    <i class="fas fa-film"></i>
+                </div>
             </div>
         </div>
         
-        <!-- Camera Preview Area -->
+        <!-- Camera Area -->
         <div class="camera-area">
-            <h2 class="panel-title">LIVE QUANTUM FEED</h2>
-            <video id="camera-preview" autoplay playsinline></video>
-            <canvas id="photo-canvas" style="display: none;"></canvas>
-            
-            <!-- AI Assistant Chat -->
-            <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 1rem; margin-top: 2rem;">
-                <h3 style="color: var(--quantum-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <span>🤖</span> AI Photo Assistant
-                </h3>
-                <p style="color: #ccc; line-height: 1.6;">
-                    <span id="ai-suggestion">"Coba pose dengan tangan di pinggang untuk hasil terbaik. Pencahayaan optimal terdeteksi!"</span>
-                </p>
-                <button id="ai-help-btn" style="margin-top: 1rem; background: transparent; border: 1px solid var(--quantum-primary); color: var(--quantum-primary); padding: 0.5rem 1.5rem; border-radius: 0.5rem; cursor: pointer;">
-                    Minta Saran AI
-                </button>
+            <div class="camera-preview-container">
+                <video id="camera-preview" autoplay playsinline></video>
+                <div class="camera-overlay">
+                    <div class="camera-controls">
+                        <button class="control-btn" id="flip-camera" title="Flip Camera">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button class="control-btn" id="timer-btn" title="Timer (3s)">
+                            <i class="fas fa-clock"></i>
+                        </button>
+                        <button class="control-btn" id="flash-btn" title="Flash">
+                            <i class="fas fa-bolt"></i>
+                        </button>
+                        <button class="control-btn" id="grid-btn" title="Grid">
+                            <i class="fas fa-th"></i>
+                        </button>
+                    </div>
+                    <div class="timer-display" id="timer-display">3</div>
+                </div>
             </div>
             
-            <!-- Gallery Preview -->
-            <div class="gallery-container">
-                <h3 style="color: #fff; margin-bottom: 1rem;">QUANTUM GALLERY</h3>
-                <div class="gallery-grid" id="photo-gallery">
-                    <!-- Photos will appear here dynamically -->
+            <div class="capture-section">
+                <button class="capture-btn" id="capture-btn"></button>
+                <div style="display: flex; gap: 15px;">
+                    <button class="control-btn" id="save-btn" title="Save Photo">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="control-btn" id="share-btn" title="Share">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <button class="control-btn" id="print-btn" title="Print">
+                        <i class="fas fa-print"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Panel - Editing Tools -->
+        <div class="right-panel">
+            <div class="tool-section">
+                <h3>Beauty Tools <span>PRO</span></h3>
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span>Smooth Skin</span>
+                        <span id="smooth-value">50%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="smooth-slider">
+                </div>
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span>Brighten</span>
+                        <span id="brighten-value">30%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="30" class="slider" id="brighten-slider">
+                </div>
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span>Face Slim</span>
+                        <span id="slim-value">0%</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="0" class="slider" id="slim-slider">
+                </div>
+            </div>
+            
+            <div class="tool-section">
+                <h3>Effects</h3>
+                <div class="effect-grid">
+                    <div class="effect-item active" data-effect="none">
+                        <span class="effect-icon">✖️</span>
+                        <span class="effect-name">None</span>
+                    </div>
+                    <div class="effect-item" data-effect="vignette">
+                        <span class="effect-icon">⭕</span>
+                        <span class="effect-name">Vignette</span>
+                    </div>
+                    <div class="effect-item" data-effect="blur">
+                        <span class="effect-icon">🌀</span>
+                        <span class="effect-name">Blur</span>
+                    </div>
+                    <div class="effect-item" data-effect="grayscale">
+                        <span class="effect-icon">⚫</span>
+                        <span class="effect-name">B&W</span>
+                    </div>
+                    <div class="effect-item" data-effect="sepia">
+                        <span class="effect-icon">🟤</span>
+                        <span class="effect-name">Sepia</span>
+                    </div>
+                    <div class="effect-item" data-effect="noise">
+                        <span class="effect-icon">🌟</span>
+                        <span class="effect-name">Noise</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tool-section">
+                <h3>Makeup</h3>
+                <div class="effect-grid">
+                    <div class="effect-item" data-makeup="lipstick">
+                        <span class="effect-icon">💄</span>
+                        <span class="effect-name">Lips</span>
+                    </div>
+                    <div class="effect-item" data-makeup="blush">
+                        <span class="effect-icon">🍎</span>
+                        <span class="effect-name">Blush</span>
+                    </div>
+                    <div class="effect-item" data-makeup="eyeliner">
+                        <span class="effect-icon">👁️</span>
+                        <span class="effect-name">Eyes</span>
+                    </div>
+                    <div class="effect-item" data-makeup="foundation">
+                        <span class="effect-icon">✨</span>
+                        <span class="effect-name">Base</span>
+                    </div>
+                    <div class="effect-item" data-makeup="eyeshadow">
+                        <span class="effect-icon">🎨</span>
+                        <span class="effect-name">Shadow</span>
+                    </div>
+                    <div class="effect-item" data-makeup="mascara">
+                        <span class="effect-icon">👁️‍🗨️</span>
+                        <span class="effect-name">Lashes</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- JavaScript -->
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <h3>Popular Filters</h3>
+        <div class="filters-container" id="filters-container">
+            <!-- Filters will be generated dynamically -->
+        </div>
+    </div>
+    
+    <!-- Gallery Modal -->
+    <div class="gallery-modal" id="gallery-modal">
+        <div class="gallery-content">
+            <div class="gallery-header">
+                <h2>Your Photos</h2>
+                <button class="close-gallery" id="close-gallery">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Gallery items will appear here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Canvas for photo processing -->
+    <canvas class="photo-canvas" id="photo-canvas"></canvas>
+    
     <script>
         // Elements
         const video = document.getElementById('camera-preview');
         const canvas = document.getElementById('photo-canvas');
-        const startBtn = document.getElementById('start-camera');
-        const stopBtn = document.getElementById('stop-camera');
         const captureBtn = document.getElementById('capture-btn');
-        const cameraSelect = document.getElementById('camera-select');
-        const gallery = document.getElementById('photo-gallery');
-        const filterCards = document.querySelectorAll('.filter-card');
+        const flipBtn = document.getElementById('flip-camera');
+        const timerBtn = document.getElementById('timer-btn');
+        const flashBtn = document.getElementById('flash-btn');
+        const gridBtn = document.getElementById('grid-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const shareBtn = document.getElementById('share-btn');
+        const galleryBtn = document.getElementById('gallery-btn');
+        const galleryModal = document.getElementById('gallery-modal');
+        const closeGallery = document.getElementById('close-gallery');
+        const filtersContainer = document.getElementById('filters-container');
+        const galleryGrid = document.getElementById('gallery-grid');
         const loader = document.getElementById('loader');
         
-        let currentStream = null;
-        let currentFilter = 'hologram';
+        // Sliders
+        const smoothSlider = document.getElementById('smooth-slider');
+        const brightenSlider = document.getElementById('brighten-slider');
+        const slimSlider = document.getElementById('slim-slider');
+        const smoothValue = document.getElementById('smooth-value');
+        const brightenValue = document.getElementById('brighten-value');
+        const slimValue = document.getElementById('slim-value');
         
-        // Available filters with 2026 effects
-        const filters = {
-            hologram: { effect: 'hue-rotate(90deg) saturate(2) contrast(1.2)', label: 'Hologram' },
-            cyberpunk: { effect: 'contrast(1.5) brightness(1.2) hue-rotate(270deg)', label: 'Cyberpunk' },
-            neuro: { effect: 'blur(1px) brightness(1.3) saturate(1.8)', label: 'Neuro-Glow' },
-            quantum: { effect: 'sepia(0.5) hue-rotate(180deg) saturate(2)', label: 'Quantum' },
-            matrix: { effect: 'grayscale(1) contrast(2) brightness(0.8)', label: 'Matrix' },
-            biometric: { effect: 'contrast(1.2) saturate(1.5) hue-rotate(45deg)', label: 'Mood' }
-        };
+        // Variables
+        let currentStream = null;
+        let currentFacingMode = 'user';
+        let timerActive = false;
+        let timerCount = 3;
+        let timerInterval = null;
+        let flashActive = false;
+        let gridActive = false;
+        let currentFilter = 'none';
+        let photos = [];
+        
+        // Sample filters (like BeautyPlus)
+        const filters = [
+            { name: "Natural", effect: "contrast(1.1) brightness(1.05) saturate(1.1)", preview: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=200&h=260&fit=crop&crop=face" },
+            { name: "Portrait", effect: "contrast(1.2) brightness(1.1) saturate(1.2) blur(0.5px)", preview: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=260&fit=crop&crop=face" },
+            { name: "Beauty", effect: "contrast(1.05) brightness(1.15) saturate(1.05) hue-rotate(5deg)", preview: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=260&fit=crop&crop=face" },
+            { name: "Vintage", effect: "sepia(0.4) contrast(1.1) brightness(0.95) saturate(1.3)", preview: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=260&fit=crop&crop=face" },
+            { name: "Warm", effect: "brightness(1.1) saturate(1.3) hue-rotate(-10deg)", preview: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=200&h=260&fit=crop&crop=face" },
+            { name: "Cool", effect: "brightness(1.05) saturate(1.1) hue-rotate(180deg) contrast(1.1)", preview: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=200&h=260&fit=crop&crop=face" },
+            { name: "Dreamy", effect: "contrast(1.05) brightness(1.1) saturate(1.2) blur(1px)", preview: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=260&fit=crop&crop=face" },
+            { name: "Crisp", effect: "contrast(1.3) brightness(1.05) saturate(1.1)", preview: "https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?w=200&h=260&fit=crop&crop=face" },
+            { name: "Golden", effect: "sepia(0.2) contrast(1.1) brightness(1.1) saturate(1.4)", preview: "https://images.unsplash.com/photo-1504593811423-6dd665756598?w=200&h=260&fit=crop&crop=face" },
+            { name: "Soft", effect: "contrast(1.05) brightness(1.08) saturate(1.05) blur(0.8px)", preview: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=260&fit=crop&crop=face" }
+        ];
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loader after 1.5 seconds
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 1500);
+            
+            // Start camera automatically
+            startCamera();
+            
+            // Generate filter thumbnails
+            generateFilters();
+            
+            // Load sample gallery photos
+            loadSampleGallery();
+            
+            // Set up slider events
+            setupSliders();
+            
+            // Set up effect selection
+            setupEffects();
+            
+            // Set up makeup selection
+            setupMakeup();
+        });
         
         // Start Camera
-        startBtn.addEventListener('click', async () => {
+        async function startCamera() {
             try {
-                loader.style.display = 'block';
-                
                 const constraints = {
                     video: {
-                        width: { ideal: 1920 },
-                        height: { ideal: 1080 },
-                        facingMode: 'user'
+                        facingMode: currentFacingMode,
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
                     },
                     audio: false
                 };
                 
                 currentStream = await navigator.mediaDevices.getUserMedia(constraints);
                 video.srcObject = currentStream;
-                
-                // Populate camera select
-                const devices = await navigator.mediaDevices.enumerateDevices();
-                const videoDevices = devices.filter(device => device.kind === 'videoinput');
-                cameraSelect.innerHTML = '<option value="">Select Camera...</option>';
-                videoDevices.forEach(device => {
-                    const option = document.createElement('option');
-                    option.value = device.deviceId;
-                    option.text = device.label || `Camera ${cameraSelect.length}`;
-                    cameraSelect.appendChild(option);
-                });
-                
-                // Apply initial filter
-                applyFilter(currentFilter);
-                
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    startBtn.innerHTML = '<span>🔄</span> Camera Active';
-                    startBtn.style.background = 'rgba(0, 255, 100, 0.2)';
-                }, 1000);
-                
             } catch (err) {
                 console.error("Camera error:", err);
                 alert("Cannot access camera. Please check permissions.");
-                loader.style.display = 'none';
             }
-        });
+        }
         
-        // Stop Camera
-        stopBtn.addEventListener('click', () => {
-            if (currentStream) {
-                currentStream.getTracks().forEach(track => track.stop());
-                video.srcObject = null;
-                startBtn.innerHTML = '<span>🎥</span> Start Camera';
-                startBtn.style.background = '';
-            }
-        });
-        
-        // Switch Camera
-        cameraSelect.addEventListener('change', async () => {
-            if (currentStream) {
-                currentStream.getTracks().forEach(track => track.stop());
-            }
-            
-            const constraints = {
-                video: {
-                    deviceId: { exact: cameraSelect.value },
-                    width: { ideal: 1920 },
-                    height: { ideal: 1080 }
-                }
-            };
-            
-            try {
-                currentStream = await navigator.mediaDevices.getUserMedia(constraints);
-                video.srcObject = currentStream;
-            } catch (err) {
-                console.error("Error switching camera:", err);
-            }
-        });
-        
-        // Filter Selection
-        filterCards.forEach(card => {
-            card.addEventListener('click', () => {
-                filterCards.forEach(c => c.classList.remove('active'));
-                card.classList.add('active');
-                currentFilter = card.dataset.filter;
-                applyFilter(currentFilter);
+        // Generate Filter Thumbnails
+        function generateFilters() {
+            filters.forEach((filter, index) => {
+                const filterItem = document.createElement('div');
+                filterItem.className = 'filter-item';
+                if (index === 0) filterItem.classList.add('active');
                 
-                // Update AI suggestion based on filter
-                const suggestions = {
-                    hologram: "Tatap langsung ke kamera untuk efek hologram maksimal!",
-                    cyberpunk: "Angkat kepala sedikit untuk highlights neon optimal.",
-                    neuro: "Senyum akan menciptakan glow neural yang spektakuler!",
-                    quantum: "Gerakkan kepala perlahan untuk efek quantum trail.",
-                    matrix: "Ekspresi serius akan memberikan vibe matrix yang authentic.",
-                    biometric: "AI sedang menganalisis mood Anda... tersenyumlah!"
-                };
-                document.getElementById('ai-suggestion').textContent = suggestions[currentFilter] || "Pose dengan percaya diri!";
+                filterItem.innerHTML = `
+                    <div class="filter-preview">
+                        <img src="${filter.preview}" alt="${filter.name}">
+                    </div>
+                    <div class="filter-name">${filter.name}</div>
+                `;
+                
+                filterItem.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    filterItem.classList.add('active');
+                    currentFilter = filter.effect;
+                    video.style.filter = currentFilter;
+                });
+                
+                filtersContainer.appendChild(filterItem);
             });
-        });
+        }
         
-        // Apply filter to video
-        function applyFilter(filterName) {
-            video.style.filter = filters[filterName]?.effect || 'none';
+        // Setup Sliders
+        function setupSliders() {
+            smoothSlider.addEventListener('input', function() {
+                smoothValue.textContent = this.value + '%';
+                // In real app, apply smooth skin effect here
+            });
+            
+            brightenSlider.addEventListener('input', function() {
+                brightenValue.textContent = this.value + '%';
+                // In real app, apply brighten effect here
+            });
+            
+            slimSlider.addEventListener('input', function() {
+                slimValue.textContent = this.value + '%';
+                // In real app, apply face slimming effect here
+            });
+        }
+        
+        // Setup Effects
+        function setupEffects() {
+            document.querySelectorAll('.effect-item[data-effect]').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('.effect-item[data-effect]').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // In real app, apply the selected effect
+                    const effect = this.dataset.effect;
+                    console.log("Effect selected:", effect);
+                });
+            });
+        }
+        
+        // Setup Makeup
+        function setupMakeup() {
+            document.querySelectorAll('.effect-item[data-makeup]').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Toggle active state for makeup items
+                    if (this.classList.contains('active')) {
+                        this.classList.remove('active');
+                    } else {
+                        this.classList.add('active');
+                    }
+                    
+                    // In real app, apply/remove makeup effect
+                    const makeup = this.dataset.makeup;
+                    console.log("Makeup toggled:", makeup, this.classList.contains('active'));
+                });
+            });
+        }
+        
+        // Load Sample Gallery
+        function loadSampleGallery() {
+            const samplePhotos = [
+                'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=400&fit=crop&crop=face',
+                'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=400&h=400&fit=crop&crop=face'
+            ];
+            
+            samplePhotos.forEach(photo => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.innerHTML = `<img src="${photo}" alt="Gallery photo">`;
+                galleryGrid.appendChild(galleryItem);
+            });
         }
         
         // Capture Photo
-        captureBtn.addEventListener('click', () => {
+        captureBtn.addEventListener('click', function() {
+            if (timerActive) {
+                startTimer();
+                return;
+            }
+            
+            capturePhoto();
+        });
+        
+        // Timer Function
+        function startTimer() {
+            const timerDisplay = document.getElementById('timer-display');
+            timerDisplay.style.display = 'block';
+            timerDisplay.textContent = timerCount;
+            
+            let count = timerCount;
+            timerInterval = setInterval(() => {
+                count--;
+                timerDisplay.textContent = count;
+                
+                if (count <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.style.display = 'none';
+                    capturePhoto();
+                }
+            }, 1000);
+        }
+        
+        // Capture Photo Function
+        function capturePhoto() {
             if (!currentStream) {
-                alert("Please start camera first!");
+                alert("Camera not started!");
                 return;
             }
             
@@ -617,129 +1041,153 @@
             canvas.height = video.videoHeight;
             const context = canvas.getContext('2d');
             
-            // Apply current filter to canvas
-            context.filter = filters[currentFilter]?.effect || 'none';
+            // Draw video frame to canvas
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            // Apply current filter
+            context.filter = currentFilter;
             
             // Create photo data
             const photoData = canvas.toDataURL('image/png');
             
+            // Add to photos array
+            photos.push(photoData);
+            
             // Add to gallery
-            const galleryItem = document.createElement('img');
+            const galleryItem = document.createElement('div');
             galleryItem.className = 'gallery-item';
-            galleryItem.src = photoData;
-            galleryItem.alt = `Photo with ${filters[currentFilter]?.label} filter`;
+            galleryItem.innerHTML = `<img src="${photoData}" alt="Captured photo">`;
+            galleryGrid.prepend(galleryItem);
             
-            // Add timestamp
-            const now = new Date();
-            galleryItem.title = `Captured: ${now.toLocaleString()} | Filter: ${filters[currentFilter]?.label}`;
+            // Flash effect
+            video.style.opacity = '0.7';
+            setTimeout(() => {
+                video.style.opacity = '1';
+            }, 150);
             
-            // Add click to view larger
-            galleryItem.addEventListener('click', () => {
-                window.open(photoData, '_blank');
-            });
-            
-            gallery.prepend(galleryItem);
-            
-            // Limit gallery to 12 photos
-            if (gallery.children.length > 12) {
-                gallery.removeChild(gallery.lastChild);
+            // Show success message
+            const originalText = captureBtn.innerHTML;
+            captureBtn.style.background = '#4CAF50';
+            setTimeout(() => {
+                captureBtn.style.background = '';
+            }, 1000);
+        }
+        
+        // Flip Camera
+        flipBtn.addEventListener('click', async function() {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
             }
             
-            // Animation feedback
-            captureBtn.innerHTML = '<span>✨</span> CAPTURED!';
-            captureBtn.style.background = 'linear-gradient(135deg, rgba(0,255,100,0.3), rgba(0,243,255,0.3))';
-            
-            setTimeout(() => {
-                captureBtn.innerHTML = '<span>📸</span> CAPTURE QUANTUM SHOT';
-                captureBtn.style.background = '';
-            }, 1500);
-            
-            // AI comment
-            const comments = [
-                "Keren! Pose mu sangat cocok dengan filter ini!",
-                "Wow, ekspresi yang powerful!",
-                "Cahaya sempurna untuk hasil optimal!",
-                "AI rate: 9.5/10! Hampir sempurna!",
-                "Kamu natural di depan kamera!",
-                "Filter ini benar-benar cocok dengan gaya mu!"
-            ];
-            document.getElementById('ai-suggestion').textContent = 
-                comments[Math.floor(Math.random() * comments.length)];
+            currentFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
+            await startCamera();
         });
         
-        // Download Photo
-        document.getElementById('download-btn').addEventListener('click', () => {
-            if (!canvas.width) {
-                alert("No photo captured yet!");
+        // Timer Toggle
+        timerBtn.addEventListener('click', function() {
+            timerActive = !timerActive;
+            this.classList.toggle('active');
+            
+            if (timerActive) {
+                timerCount = 3; // Reset to 3 seconds
+                this.innerHTML = '<i class="fas fa-clock"></i>';
+            }
+        });
+        
+        // Flash Toggle
+        flashBtn.addEventListener('click', function() {
+            flashActive = !flashActive;
+            this.classList.toggle('active');
+            
+            if (flashActive) {
+                this.innerHTML = '<i class="fas fa-bolt" style="color: #FFD700;"></i>';
+                // In real app, activate flash here
+            } else {
+                this.innerHTML = '<i class="fas fa-bolt"></i>';
+            }
+        });
+        
+        // Grid Toggle
+        gridBtn.addEventListener('click', function() {
+            gridActive = !gridActive;
+            this.classList.toggle('active');
+            
+            // In real app, show/hide grid overlay on camera
+            console.log("Grid toggled:", gridActive);
+        });
+        
+        // Save Photo
+        saveBtn.addEventListener('click', function() {
+            if (photos.length === 0) {
+                alert("No photos to save! Capture one first.");
                 return;
             }
             
+            const latestPhoto = photos[photos.length - 1];
             const link = document.createElement('a');
-            link.download = `quantum-photo-${Date.now()}.png`;
-            link.href = canvas.toDataURL('image/png');
+            link.download = `glowplus-photo-${Date.now()}.png`;
+            link.href = latestPhoto;
             link.click();
-        });
-        
-        // Share to Metaverse (Simulation)
-        document.getElementById('share-btn').addEventListener('click', () => {
-            loader.style.display = 'block';
+            
+            // Show feedback
+            this.innerHTML = '<i class="fas fa-check"></i>';
             setTimeout(() => {
-                loader.style.display = 'none';
-                alert("✅ Photo shared to Metaverse! Available in your VR gallery.");
-            }, 2000);
+                this.innerHTML = '<i class="fas fa-download"></i>';
+            }, 1500);
         });
         
-        // Mint as NFT (Simulation)
-        document.getElementById('nft-btn').addEventListener('click', () => {
-            const confirmed = confirm("Mint this photo as NFT on Quantum Blockchain? (Gas fee: ~0.002 ETH)");
-            if (confirmed) {
-                loader.style.display = 'block';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    alert("🎉 NFT minted successfully! Token ID: #QPB2026-" + Math.floor(Math.random() * 10000));
-                }, 3000);
+        // Share Photo
+        shareBtn.addEventListener('click', function() {
+            if (photos.length === 0) {
+                alert("No photos to share! Capture one first.");
+                return;
+            }
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My GlowPlus Photo',
+                    text: 'Check out my photo from GlowPlus!',
+                    url: photos[photos.length - 1]
+                });
+            } else {
+                alert("Share feature is available on mobile devices. On desktop, you can download and share manually.");
             }
         });
         
-        // AI Help Button
-        document.getElementById('ai-help-btn').addEventListener('click', () => {
-            const tips = [
-                "Coba berdiri 1.5 meter dari kamera untuk framing terbaik.",
-                "Pencahayaan dari jendela akan memberikan hasil terbaik.",
-                "Pakai baju dengan warna solid untuk efek filter maksimal.",
-                "Tatap lensa kamera, bukan layar, untuk kontak mata optimal.",
-                "Ambient light mode aktif - pertahankan pose 3 detik.",
-                "AI merekomendasikan filter 'Neuro-Glow' untuk skin tone Anda."
-            ];
-            document.getElementById('ai-suggestion').textContent = 
-                "🤖 AI Tip: " + tips[Math.floor(Math.random() * tips.length)];
+        // Open Gallery
+        galleryBtn.addEventListener('click', function() {
+            galleryModal.style.display = 'flex';
         });
         
-        // Initialize with some demo gallery images
-        window.addEventListener('load', () => {
-            const demoImages = [
-                'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-                'https://images.unsplash.com/photo-1494790108755-2616b612b786?w-400&h=400&fit=crop'
-            ];
-            
-            demoImages.forEach(img => {
-                const galleryItem = document.createElement('img');
-                galleryItem.className = 'gallery-item';
-                galleryItem.src = img;
-                galleryItem.alt = "Demo photo";
-                gallery.appendChild(galleryItem);
+        // Close Gallery
+        closeGallery.addEventListener('click', function() {
+            galleryModal.style.display = 'none';
+        });
+        
+        // Close gallery when clicking outside
+        galleryModal.addEventListener('click', function(e) {
+            if (e.target === galleryModal) {
+                galleryModal.style.display = 'none';
+            }
+        });
+        
+        // Premium Button
+        document.getElementById('premium-btn').addEventListener('click', function() {
+            alert("✨ Premium Features:\n• Unlimited filters\n• HD photo saving\n• Remove watermarks\n• Advanced beauty tools\n• Priority support");
+        });
+        
+        // Filter Category Selection
+        document.querySelectorAll('.filter-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                document.querySelectorAll('.filter-icon').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // In real app, load filters for this category
+                const category = this.dataset.category;
+                console.log("Filter category selected:", category);
             });
-        });
-        
-        // Quantum UI Effect - Interactive background
-        document.addEventListener('mousemove', (e) => {
-            const hologramBg = document.querySelector('.hologram-bg');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            hologramBg.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
         });
     </script>
 </body>
